@@ -15,12 +15,14 @@ function Player:new(x, y, world)
         height = 64,
 
         health = 10,
-        speed = 300,
+        speed = 200,
 
+        world = world,
         shotSpeed = 0.25,
-        shotTimer = 0.25,
         shots = {}
     }
+
+    this.shotTimer = this.shotSpeed
 
     this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, 17)
     this.collider:setCollisionClass('Player')
@@ -46,13 +48,7 @@ function Player:new(x, y, world)
     this.attack = function(dt)
         this.shotTimer = this.shotTimer + dt
         if this.shotTimer > this.shotSpeed then
-            local shot = Shot:new(
-                this.x + this.width,
-                this.y + 16,
-                world,
-                this.shots
-            )
-            table.insert(this.shots, shot)
+            this:shoot()
             this.shotTimer = 0
         end
     end
@@ -83,11 +79,19 @@ function Player:render()
     love.graphics.draw(self.spritesheet, self.x, self.y)
 
     love.graphics.setColor(0,255,0,1)
-    love.graphics.print(self.health)
+    love.graphics.print('Health: '..self.health)
 
     renderLoop(self.shots)
 end
 
+function Player:shoot()
+    local shot = Shot:new(
+        self.x + 55,
+        self.y + 16,
+        self.world, self.shots
+    )
+    table.insert(self.shots, shot)
+end
 
 function Player:isOnRightEdge()
     local delimiter = 50

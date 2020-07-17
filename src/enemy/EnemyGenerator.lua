@@ -4,14 +4,17 @@ require('src.enemy.SmallEnemy')
 EnemyGenerator = {}
 EnemyGenerator.__index = EnemyGenerator
 
-WINDOW_END = -10
+WINDOW_LIMIT = -10
 
 function EnemyGenerator:new(map)
     local this = {
         class = 'EnemyGenerator',
 
         map = map,
-        enemyTimer = 0
+        gameTime = 0,
+        enemyTimer = 0,
+        bombPercentage = 2,
+        smallPercentage = 5
     }
 
     setmetatable(this, self)
@@ -19,14 +22,16 @@ function EnemyGenerator:new(map)
 end
 
 function EnemyGenerator:update(dt)
+    self:increaseDifficulty(dt)
+
     self.enemyTimer = self.enemyTimer - 2 * dt
     if self.enemyTimer <= 0 then
 
-        if math.random(2) == 1 then
+        if math.random(self.bombPercentage) == 1 then
             self:createBombs()
         end
 
-        if math.random(5) == 1 then
+        if math.random(self.smallPercentage) == 1 then
             self:createSmallEnemy()
         end
 
@@ -43,8 +48,7 @@ function EnemyGenerator:createBombs()
     for i=1,5 do
         local delimiter = 25 * i
         bomb = Bomb:new(
-            800 + delimiter, y,
-            self.map.enemies, self.map.world,
+            WINDOW_WIDTH + delimiter, y, self.map,
             spriteNumber, movementNumber
         )
         self.map:addEnemy(bomb)
@@ -53,8 +57,25 @@ end
 
 function EnemyGenerator:createSmallEnemy()
     local smallEnemy
-    local movementNumber = math.random(2)
+    local movementNumber = math.random(3)
     local y = math.random(50, WINDOW_HEIGHT - 50)
-    smallEnemy = SmallEnemy:new(800, y, self.map.enemies, self.map.world, movementNumber)
+    smallEnemy = SmallEnemy:new(WINDOW_WIDTH, y, self.map, movementNumber)
     self.map:addEnemy(smallEnemy)
+end
+
+local function changePercentage(number)
+    if number <= 1 then
+        number = 1
+    else
+        number = number - 1
+    end
+    return number
+end
+
+function EnemyGenerator:increaseDifficulty(dt)
+    self.gameTime = self.gameTime + 1
+    if self.gameTime > 0 and self.gameTime % 500 == 0 then
+        self.bombPercentage = changePercentage(self.bombPercentage)
+        self.smallPercentage = changePercentage(self.smallPercentage)
+    end
 end

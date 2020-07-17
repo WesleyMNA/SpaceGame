@@ -18,7 +18,8 @@ local function loadGame()
     world = wf.newWorld(0, 0, true)
     createCollisionClasses(world)
 
-    map = Map:new(world)
+    local randomNumber = math.random(9)
+    map = Map:new(world, randomNumber)
 end
 
 function love.load()

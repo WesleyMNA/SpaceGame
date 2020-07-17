@@ -20,7 +20,7 @@ function StartGame:new()
 end
 
 function StartGame:update(dt)
-    if love.mouse.isDown(1) and isClikingOnButton(self) then
+    if love.mouse.isDown(1) then --and isClikingOnButton(self) then
         RUN = true
     end
 end

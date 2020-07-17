@@ -1,12 +1,13 @@
 require('src.Animation')
 
-Explosion = {}
-Explosion.__index = Explosion
+EnemyExplosion = {}
+EnemyExplosion.__index = EnemyExplosion
 
-function Explosion:new()
+function EnemyExplosion:new(enemy)
     local this = {
-        class = 'Explosion',
-        spritesheet = love.graphics.newImage('sprites/enemy/explosion.png')
+        class = 'EnemyExplosion',
+        spritesheet = love.graphics.newImage('sprites/enemy/explosion.png'),
+        enemy = enemy
     }
 
     this.quad = love.graphics.newQuad(0, 0, 16, 16, this.spritesheet:getDimensions())
@@ -16,13 +17,12 @@ function Explosion:new()
     return this
 end
 
-function Explosion:update(dt, x, y)
-    self.x = x
-    self.y= y
+function EnemyExplosion:update(dt)
+    self.x, self.y = self.enemy:getPosition()
     self.animation:update(dt)
 end
 
-function Explosion:render()
+function EnemyExplosion:render()
     love.graphics.setColor(255, 255, 255, 1)
     love.graphics.draw(self.spritesheet, self.quad, self.x, self.y)
 end
