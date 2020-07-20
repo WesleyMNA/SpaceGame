@@ -1,24 +1,28 @@
+require('src.Util')
 require('src.player.Player')
 require('src.enemy.EnemyGenerator')
-require('src.Util')
+require('src.CreateCollisionClasses')
+
+POINTS = 0
+local enemiesTimer = 0
+local wf = require 'libs.windfield'
 
 Map = {}
 Map.__index = Map
 
-local enemiesTimer = 0
-
-function Map:new(world, randomNumber)
+function Map:new(randomNumber, ship)
     local this = {
         tile = love.graphics.newImage('sprites/map/Space_Stars'..randomNumber..'.png'),
         mapWidth = math.floor(WINDOW_WIDTH / 64),
         mapHeight = math.floor(WINDOW_HEIGHT / 64),
-        world = world,
+        world = wf.newWorld(0, 0, true),
         enemies = {}
     }
 
     this.spriteBatch = love.graphics.newSpriteBatch(this.tile, this.mapWidth * this.mapHeight)
 
-    this.player = Player:new(WINDOW_HEIGHT/2, 100, world)
+    createCollisionClasses(this.world)
+    this.player = Player:new(WINDOW_HEIGHT/2, 100, this.world, ship)
     this.enemyGenerator = EnemyGenerator:new(this)
 
     for y = 0, this.mapHeight do
@@ -32,6 +36,7 @@ function Map:new(world, randomNumber)
 end
 
 function Map:update(dt)
+    self.world:update(dt)
     self.player:update(dt)
     self.enemyGenerator:update(dt)
     updateLoop(dt, self.enemies)
@@ -42,6 +47,7 @@ function Map:render()
     love.graphics.draw(self.spriteBatch)
     self.player:render()
     renderLoop(self.enemies)
+--    self.world:draw()
 
     love.graphics.setColor(255, 255, 0, 1)
     love.graphics.print('Points: ' .. POINTS, 0, 15)

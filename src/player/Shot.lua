@@ -4,29 +4,31 @@ require('src.Animation')
 Shot = {}
 Shot.__index = Shot
 
-function Shot:new(x, y, world, shotsTable)
+function Shot:new(x, y, ship, world, shotsTable)
     local this = {
         class = 'Shot',
 
-        spritesheet = love.graphics.newImage('sprites/player/Shots/Shot1/shot1.png'),
+        spritesheet = love.graphics.newImage('sprites/player/ship'..ship.number..'/shot.png'),
         x = x,
         y = y,
-        width = 32,
-        height = 32,
-        speed = 300,
 
+        currentShot = ship.shot,
         shotsTable = shotsTable,
         state = 'move'
     }
 
-    this.quad = love.graphics.newQuad(0, 0, 32, 32, this.spritesheet:getDimensions())
+    this.width = this.currentShot.width
+    this.height = this.currentShot.height
+    this.speed = this.currentShot.speed
 
-    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, 3)
+    this.quad = love.graphics.newQuad(0, 0, this.width, this.height, this.spritesheet:getDimensions())
+
+    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, this.currentShot.radius)
     this.collider:setCollisionClass('Shot')
 
     this.animation = {
-        move = Animation:new(this.quad, 10, 4, 0),
-        collide = Animation:new(this.quad, 10, 5, 32)
+        move = Animation:new(this.quad, this.currentShot.move),
+        collide = Animation:new(this.quad, this.currentShot.collide)
     }
 
     this.behaviors = {

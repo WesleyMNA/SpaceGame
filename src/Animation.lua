@@ -1,16 +1,17 @@
 Animation = {}
 Animation.__index = Animation
 
-function Animation:new(quad, fps, numFrames, yoffset)
+function Animation:new(quad, t)
     local this = {
         class = 'Animation',
         quad = quad,
-        fps = fps,
-        timer = 1 / fps,
+        fps = t.fps,
+        timer = 1 / t.fps,
         frame = 1,
-        numFrames = numFrames,
+        frames = t.frames,
         xoffset = 0,
-        yoffset = yoffset,
+        xoffsetMul = t.xoffsetMul,
+        yoffset = t.yoffset,
         animationEnd = false
     }
 
@@ -25,12 +26,12 @@ function Animation:update(dt)
     if self.timer <= 0 then
         self.timer = 1 / self.fps
         self.frame = self.frame + 1
-        if self.frame >= self.numFrames then
+        if self.frame >= self.frames then
             self.animationEnd = true
             return
         end
-        self.xoffset = 32 * self.frame
-        self.quad:setViewport(self.xoffset, self.yoffset, 32, 32)
+        self.xoffset = self.xoffsetMul * self.frame
+        self.quad:setViewport(self.xoffset, self.yoffset, self.xoffsetMul, self.xoffsetMul)
     end
 end
 

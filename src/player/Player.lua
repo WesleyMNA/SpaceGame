@@ -1,30 +1,36 @@
-require('src.player.Shot')
 require('src.Util')
+require('src.player.Shot')
+require('src.player.ShipsData')
 
 Player = {}
 Player.__index = Player
 
-function Player:new(x, y, world)
+function Player:new(x, y, world, shipNumber)
     local this = {
         class = 'Player',
 
-        spritesheet = love.graphics.newImage('sprites/player/Ship1/Ship1.png'),
+        spritesheet = love.graphics.newImage('sprites/player/ship'..shipNumber..'/ship.png'),
         x = x,
         y = y,
-        width = 64,
-        height = 64,
 
-        health = 10,
-        speed = 200,
+        currentShip = SHIPS_DATA[shipNumber],
 
         world = world,
-        shotSpeed = 0.25,
         shots = {}
     }
 
+    this.health = this.currentShip.health
+    this.speed = this.currentShip.speed
+    this.shotSpeed = this.currentShip.shotSpeed
+    this.shotX = this.currentShip.shotX
+    this.shotY = this.currentShip.shotY
+
     this.shotTimer = this.shotSpeed
 
-    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, 17)
+    this.width = this.spritesheet:getWidth()
+    this.height = this.spritesheet:getHeight()
+
+    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, this.currentShip.radius)
     this.collider:setCollisionClass('Player')
 
     this.move = function(dt)
@@ -86,9 +92,9 @@ end
 
 function Player:shoot()
     local shot = Shot:new(
-        self.x + 55,
-        self.y + 16,
-        self.world, self.shots
+        self.x + self.shotX,
+        self.y + self.shotY,
+        self.currentShip, self.world, self.shots
     )
     table.insert(self.shots, shot)
 end
@@ -110,7 +116,7 @@ end
 
 function Player:isDead()
     if self.health <= 0 then
-        RUN = false
+        CURRENT_GUI = 'gameOver'
     end
 end
 

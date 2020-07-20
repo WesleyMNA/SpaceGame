@@ -11,7 +11,13 @@ function EnemyExplosion:new(enemy)
     }
 
     this.quad = love.graphics.newQuad(0, 0, 16, 16, this.spritesheet:getDimensions())
-    this.animation = Animation:new(this.quad, 10, 5, 0)
+    local t = {
+        fps = 10,
+        frames = 5,
+        xoffsetMul = 32,
+        yoffset = 0
+    }
+    this.animation = Animation:new(this.quad, t)
 
     setmetatable(this, self)
     return this
