@@ -34,13 +34,20 @@ function Bomb:new(x, y, map, spriteNumber, movementNumber)
             local speed = 200
             this.x = this.x - speed * dt
         end,
-        wave = function(dt)
-            local amplitude = 10
-            local lambda = 25
+        smallWave = function(dt)
+            local amplitude = WINDOW_HEIGHT / 40
+            local lambda = WINDOW_HEIGHT / 16
             local speed = 200
             this.x = this.x - speed / 2 * dt
             this.y = this.y - amplitude * math.cos(math.pi/lambda * this.x)
         end,
+        bigWave = function(dt)
+            local amplitude = WINDOW_HEIGHT / 3
+            local lambda = WINDOW_HEIGHT / 4
+            local speed = 200
+            this.x = this.x - speed / 2 * dt
+            this.y = (WINDOW_HEIGHT/2) - amplitude * math.cos(math.pi/lambda * this.x)
+        end
     }
 
     setmetatable(this, self)

@@ -1,5 +1,6 @@
 require('src.enemy.Bomb')
 require('src.enemy.SmallEnemy')
+require('src.enemy.MediumEnemy')
 
 EnemyGenerator = {}
 EnemyGenerator.__index = EnemyGenerator
@@ -13,8 +14,9 @@ function EnemyGenerator:new(map)
         map = map,
         gameTime = 0,
         enemyTimer = 0,
-        bombPercentage = 2,
-        smallPercentage = 5
+        bombPercentage = 1,
+        smallPercentage = 10,
+        mediumPercenage = 20,
     }
 
     setmetatable(this, self)
@@ -35,13 +37,17 @@ function EnemyGenerator:update(dt)
             self:createSmallEnemy()
         end
 
+        if math.random(self.mediumPercenage) == 1 then
+            self:createMediumEnemy()
+        end
+
         self.enemyTimer = 5
     end
 end
 
 function EnemyGenerator:createBombs()
     local bomb
-    local movementNumber = math.random(2)
+    local movementNumber = math.random(3)
     local spriteNumber = math.random(0, 1)
     local y = math.random(50, WINDOW_HEIGHT - 50)
 
@@ -63,6 +69,14 @@ function EnemyGenerator:createSmallEnemy()
     self.map:addEnemy(smallEnemy)
 end
 
+function EnemyGenerator:createMediumEnemy()
+    local mediumEnemy
+    local movementNumber = math.random(3)
+    local y = math.random(50, WINDOW_HEIGHT - 50)
+    mediumEnemy = MediumEnemy:new(WINDOW_WIDTH, y, self.map, movementNumber)
+    self.map:addEnemy(mediumEnemy)
+end
+
 local function changePercentage(number)
     if number <= 1 then
         number = 1
@@ -77,5 +91,6 @@ function EnemyGenerator:increaseDifficulty(dt)
     if self.gameTime > 0 and self.gameTime % 500 == 0 then
         self.bombPercentage = changePercentage(self.bombPercentage)
         self.smallPercentage = changePercentage(self.smallPercentage)
+        self.mediumPercenage = changePercentage(self.mediumPercenage)
     end
 end

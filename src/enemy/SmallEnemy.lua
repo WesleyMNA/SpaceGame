@@ -42,8 +42,8 @@ function SmallEnemy:new(x, y, map, movementNumber)
             end
         end,
         wave = function(dt)
-            local amplitude = 150
-            local lambda = 100
+            local amplitude = WINDOW_HEIGHT / 3
+            local lambda = WINDOW_HEIGHT / 4
             local speed = 100
             this.x = this.x - speed / 2 * dt
             this.y = (WINDOW_HEIGHT/2) - amplitude * math.cos(math.pi/lambda * this.x)

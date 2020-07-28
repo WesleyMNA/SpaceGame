@@ -9,7 +9,7 @@ function Player:new(x, y, world, shipNumber)
     local this = {
         class = 'Player',
 
-        spritesheet = love.graphics.newImage('sprites/player/ship'..shipNumber..'/ship.png'),
+        spritesheet = SHIPS_DATA[shipNumber].sprite,
         x = x,
         y = y,
 

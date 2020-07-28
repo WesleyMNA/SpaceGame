@@ -8,7 +8,7 @@ function Shot:new(x, y, ship, world, shotsTable)
     local this = {
         class = 'Shot',
 
-        spritesheet = love.graphics.newImage('sprites/player/ship'..ship.number..'/shot.png'),
+        spritesheet = love.graphics.newImage('sprites/player/ship'..ship.id..'/shot.png'),
         x = x,
         y = y,
 
@@ -40,7 +40,8 @@ function Shot:new(x, y, ship, world, shotsTable)
             end
         end,
         collide = function(dt)
-            this.collider:setCollisionClass('Ignore') -- ignore collision while animation is playing
+            local colliderClass = SHIPS_DATA[ship.id].shot.collide.class
+            this.collider:setCollisionClass(colliderClass)
             if this.animation[this.state]:hasFinished() then
                 removeObjectFromMap(this.shotsTable, this)
             end
