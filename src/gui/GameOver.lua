@@ -7,7 +7,7 @@ function GameOver:new(background, manager)
     local this = {
         class = 'GameOver',
 
-        icon = love.graphics.newImage('sprites/gui/game_over/record.png'),
+        icon = love.graphics.newImage('sprites/gui/headers/record.png'),
         background = background,
         manager = manager
     }
@@ -47,12 +47,12 @@ function GameOver:render()
 
     love.graphics.setColor(255, 255, 255, 1)
     local iconX = WINDOW_WIDTH/2 - self.icon:getWidth()/2
-    local iconY = 50
+    local iconY = 20
     love.graphics.draw(self.icon, iconX, iconY)
 
-    local printX = WINDOW_WIDTH/2
+    local printX = WINDOW_WIDTH/2 - 50
     local printY = iconY +  self.icon:getHeight()
-    love.graphics.print(POINTS, printX, printY, 0, 3, 3)
+    love.graphics.print(POINTS, printX, printY, 0, 2, 2)
 
     self.menuButton:render()
     self.playButton:render()

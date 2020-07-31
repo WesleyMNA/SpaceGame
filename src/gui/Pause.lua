@@ -6,7 +6,7 @@ function Pause:new(background)
         class = 'Pause',
 
         background = background,
-        icon = love.graphics.newImage('sprites/gui/map/pause.png')
+        icon = love.graphics.newImage('sprites/gui/headers/pause.png')
     }
 
     local menuIcon = love.graphics.newImage('sprites/gui/buttons/menu.png')

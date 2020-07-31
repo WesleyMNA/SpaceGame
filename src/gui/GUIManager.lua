@@ -56,3 +56,7 @@ end
 function GUIManager:resetSelection()
     self.guis.selection = Selection:new(self.background, self)
 end
+
+function GUIManager:resetShop()
+    self.guis.shop = Shop:new(self.background, self)
+end

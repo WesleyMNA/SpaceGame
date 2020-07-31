@@ -10,6 +10,15 @@ function updateLoop(dt, objectList)
     end
 end
 
+function createHeader(path)
+    local header = {}
+    header.sprite = love.graphics.newImage(path)
+    header.x = WINDOW_WIDTH/2 - header.sprite:getWidth()/2
+    header.y = 10
+
+    return header
+end
+
 function removeObjectFromMap(t, objetc)
     local index = table.indexOf(t, objetc)
     table.remove(t, index)

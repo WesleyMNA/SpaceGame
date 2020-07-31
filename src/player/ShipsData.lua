@@ -2,7 +2,7 @@ SHIPS_DATA = {}
 
 SHIPS_DATA[1] = {
     id = 1,
-    activated = false,
+    activated = true,
     sprite = love.graphics.newImage('sprites/player/ship1/ship.png'),
     price = 0,
     health = 1,
@@ -134,9 +134,9 @@ SHIPS_DATA[5] = {
     sprite = love.graphics.newImage('sprites/player/ship5/ship.png'),
     price = 80000,
     health = 10,
-    speed = 450,
+    speed = 400,
     radius = 26,
-    shotSpeed = 0.2,
+    shotSpeed = 0.3,
     shotX = 75,
     shotY = 5,
     shot = {
@@ -162,32 +162,32 @@ SHIPS_DATA[5] = {
 
 SHIPS_DATA[6] = {
     id = 6,
-    activated = true,
+    activated = false,
     sprite = love.graphics.newImage('sprites/player/ship6/ship.png'),
     price = 100000,
     health = 20,
     speed = 500,
-    radius = 20,
+    radius = 30,
     shotSpeed = 0.1,
-    shotX = 55,
-    shotY = -15,
+    shotX = 85,
+    shotY = 4,
     shot = {
         width = 64,
         height = 64,
         speed = 300,
-        radius = 6,
+        radius = 5,
         move = {
             fps = 100,
             frames = 5,
-            xoffsetMul = 128,
+            xoffsetMul = 64,
             yoffset = 0
         },
         collide = {
             fps = 10,
             frames = 10,
-            xoffsetMul = 128,
-            yoffset = 128,
-            class = 'Ignore'
+            xoffsetMul = 64,
+            yoffset = 64,
+            class = 'Shot'
         }
     }
 }

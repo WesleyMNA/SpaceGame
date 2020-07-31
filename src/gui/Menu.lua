@@ -49,8 +49,5 @@ function Menu:render()
 
     local iconX = (WINDOW_WIDTH / 2) - self.icon:getWidth()/2
     love.graphics.draw(self.icon, iconX, 20)
-
-    love.graphics.print('Width: '.. WINDOW_WIDTH)
-    love.graphics.print('Height: '.. WINDOW_HEIGHT, 0, 15)
 end
 

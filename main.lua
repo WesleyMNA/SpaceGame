@@ -1,7 +1,7 @@
 require('src.Util')
 require('src.gui.GUIManager')
 
-POINTS = 0
+POINTS = 10000000
 WINDOW_WIDTH = love.graphics.getWidth()
 WINDOW_HEIGHT = love.graphics.getHeight()
 

@@ -7,14 +7,14 @@ function Selection:new(background, manager)
     local this = {
         class = 'Selection',
 
+
         background = background,
         manager= manager,
         currentShip = 1,
         ships = {}
     }
 
-    this.shipX = (WINDOW_WIDTH / 2) - 32
-    this.shipY = 100
+    this.header = createHeader('sprites/gui/headers/hangar.png')
 
     setmetatable(this, self)
 
@@ -32,8 +32,8 @@ function Selection:new(background, manager)
         end
     end
 
-    local confirmIcon = love.graphics.newImage('sprites/gui/selection/table.png')
-    this.confirmButton = Button:new(160, buttonY, confirmIcon)
+    local tableIcon = love.graphics.newImage('sprites/gui/selection/table.png')
+    this.tableButton = Button:new(160, buttonY, tableIcon)
 
     local forwardIcon = love.graphics.newImage('sprites/gui/selection/forward.png')
     local buttonX = 160 + WINDOW_WIDTH/2 + 10
@@ -45,6 +45,15 @@ function Selection:new(background, manager)
             this.currentShip = this.currentShip + 1
         end
     end
+
+    local closeIcon = love.graphics.newImage('sprites/gui/buttons/close.png')
+    local buttonX = WINDOW_WIDTH/2 + 25
+    local buttonY = buttonY + tableIcon:getHeight() + 10
+    this.closeButton = Button:new(buttonX, buttonY, closeIcon)
+
+    local okIcon = love.graphics.newImage('sprites/gui/buttons/ok.png')
+    local buttonX = WINDOW_WIDTH/2 - 75
+    this.okButton = Button:new(buttonX, buttonY, okIcon)
 
     local shopIcon = love.graphics.newImage('sprites/gui/selection/shop.png')
     local buttonX = WINDOW_WIDTH - 50
@@ -62,9 +71,13 @@ function Selection:update(dt)
             self.backwardButton:changeShip()
         end
 
-        if isClikingOnButton(self.confirmButton) then
+        if isClikingOnButton(self.okButton) then
             self.manager:createMap()
             CURRENT_GUI = 'map'
+        end
+
+        if isClikingOnButton(self.closeButton) then
+            CURRENT_GUI = 'menu'
         end
 
         if isClikingOnButton(self.forwardButton) then
@@ -81,12 +94,16 @@ function Selection:render()
     love.graphics.setColor(255, 255, 255, 0.3)
     love.graphics.draw(self.background)
     self.backwardButton:render()
-    self.confirmButton:render()
+    self.tableButton:render()
+    love.graphics.draw(self.header.sprite, self.header.x, self.header.y)
+    local shipX = (WINDOW_WIDTH / 2) - 32
+    local shipY = 100
     love.graphics.draw(
-        self.ships[self.currentShip].sprite,
-        self.shipX, self.shipY
+        self.ships[self.currentShip].sprite, shipX, shipY
     )
     self.forwardButton:render()
+    self.okButton:render()
+    self.closeButton:render()
     self.shopButton:render()
 end
 
