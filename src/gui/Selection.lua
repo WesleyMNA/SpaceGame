@@ -67,26 +67,18 @@ function Selection:update(dt)
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'selection' then return end
 
-        if isClikingOnButton(self.backwardButton) then
-            self.backwardButton:changeShip()
-        end
+        if self.backwardButton:isClicked() then self.backwardButton:changeShip() end
 
-        if isClikingOnButton(self.okButton) then
+        if self.okButton:isClicked() then
             self.manager:createMap()
             CURRENT_GUI = 'map'
         end
 
-        if isClikingOnButton(self.closeButton) then
-            CURRENT_GUI = 'menu'
-        end
+        if self.closeButton:isClicked() then CURRENT_GUI = 'menu' end
 
-        if isClikingOnButton(self.forwardButton) then
-            self.forwardButton:changeShip()
-        end
+        if self.forwardButton:isClicked() then self.forwardButton:changeShip() end
 
-        if isClikingOnButton(self.shopButton) then
-            CURRENT_GUI = 'shop'
-        end
+        if self.shopButton:isClicked() then CURRENT_GUI = 'shop' end
     end
 end
 

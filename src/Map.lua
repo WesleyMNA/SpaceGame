@@ -31,9 +31,7 @@ function Map:new(background, ship)
         function love.mousepressed(x, y)
             if CURRENT_GUI ~= 'map' then return end
 
-            if isClikingOnButton(this.pauseButton) then
-                CURRENT_GUI = 'pause'
-            end
+            if this.pauseButton:isClicked() then CURRENT_GUI = 'pause' end
         end
     end
 
@@ -58,7 +56,7 @@ function Map:render()
 --    self.world:draw()
 
     love.graphics.setColor(255, 255, 0, 1)
-    love.graphics.print('Points: ' .. POINTS, 0, 15)
+    love.graphics.print('Points: ' .. POINTS, 75, 0)
 end
 
 function Map:addEnemy(enemy)

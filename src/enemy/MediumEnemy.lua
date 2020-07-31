@@ -26,7 +26,7 @@ function MediumEnemy:new(x, y, map, movementNumber)
 
     this.collider = map.world:newRectangleCollider(x, y, this.width, this.height)
     this.collider:setCollisionClass('Enemy')
-    this.explosion = EnemyExplosion:new(this)
+    this.explosion = Explosion:new(this)
 
     this.movements = {
         straight = function(dt)

@@ -1,4 +1,4 @@
-require('src.enemy.Explosion')
+require('src.Explosion')
 
 Bomb = {}
 Bomb.__index = Bomb
@@ -27,7 +27,7 @@ function Bomb:new(x, y, map, spriteNumber, movementNumber)
 
     this.collider = map.world:newRectangleCollider(x, y, this.width, this.height)
     this.collider:setCollisionClass('Enemy')
-    this.explosion = EnemyExplosion:new(this)
+    this.explosion = Explosion:new(this)
 
     this.movements = {
         straight = function(dt)

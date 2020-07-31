@@ -21,17 +21,20 @@ function Player:new(x, y, world, shipNumber)
 
     this.health = this.currentShip.health
     this.speed = this.currentShip.speed
+
     this.shotSpeed = this.currentShip.shotSpeed
+    this.shotTimer = this.shotSpeed
+
     this.shotX = this.currentShip.shotX
     this.shotY = this.currentShip.shotY
-
-    this.shotTimer = this.shotSpeed
 
     this.width = this.spritesheet:getWidth()
     this.height = this.spritesheet:getHeight()
 
     this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, this.currentShip.radius)
     this.collider:setCollisionClass('Player')
+
+    this.explosion = Explosion:new(this)
 
     this.move = function(dt)
         if love.mouse.isDown(1) then
@@ -70,24 +73,31 @@ function Player:new(x, y, world, shipNumber)
 end
 
 function Player:update(dt)
-    self.move(dt)
-    self.attack(dt)
-    self.collide(dt)
-    self.collider:setPosition(self.x+self.width/2, self.y+self.height/2)
+    if self:isAlive() then
+        self.move(dt)
+        self.attack(dt)
+        self.collide(dt)
+        self.collider:setPosition(self.x+self.width/2, self.y+self.height/2)
 
-    updateLoop(dt, self.shots)
-
-    self:isDead()
+        updateLoop(dt, self.shots)
+    else
+        self.explosion:update(dt)
+        if self.explosion.animation:hasFinished() then CURRENT_GUI = 'gameOver' end
+    end
 end
 
 function Player:render()
-    love.graphics.setColor(255,255,255,1)
-    love.graphics.draw(self.spritesheet, self.x, self.y)
+    if self:isAlive() then
+        love.graphics.setColor(255,255,255,1)
+        love.graphics.draw(self.spritesheet, self.x, self.y)
 
-    love.graphics.setColor(0,255,0,1)
-    love.graphics.print('Health: '..self.health)
+        love.graphics.setColor(0,255,0,1)
+        love.graphics.print('Health: '..self.health)
 
-    renderLoop(self.shots)
+        renderLoop(self.shots)
+    else
+        self.explosion:render()
+    end
 end
 
 function Player:shoot()
@@ -114,15 +124,11 @@ function Player:isOnBottomEdge()
     return false
 end
 
-function Player:isDead()
-    if self.health <= 0 then
-        CURRENT_GUI = 'gameOver'
-    end
+function Player:isAlive()
+    if self.health <= 0 then return false end
+    return true
 end
 
-function Player:getMiddle()
-    local x = self.x + self.width/2
-    local y =  self.y + self.height/2
-
-    return x, y
+function Player:getPosition()
+    return self.x, self.y
 end

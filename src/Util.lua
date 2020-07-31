@@ -35,10 +35,11 @@ function table.indexOf(t, object)
     end
 end
 
+--[[
 function isClikingOnButton(button)
     local mouseX, mouseY = love.mouse.getPosition()
     local bool = mouseX > button.x and mouseX < button.x + button.width and
             mouseY > button.y and mouseY < button.y + button.height
 
     return bool
-end
+end]]

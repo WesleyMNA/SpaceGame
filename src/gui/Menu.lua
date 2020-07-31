@@ -15,29 +15,24 @@ function Menu:new(background)
     local buttonX = (WINDOW_WIDTH / 2) - buttonIcon:getWidth()/2
     local buttonY = 230
     this.startButton = Button:new(buttonX, buttonY, buttonIcon)
-    this.startButton.update = function(dt)
-        if love.mouse.isDown(1) and isClikingOnButton(this.startButton) then
-            CURRENT_GUI = 'selection'
-        end
-    end
 
     local buttonIcon = love.graphics.newImage('sprites/gui/menu/exit.png')
     local buttonX = (WINDOW_WIDTH / 2) - buttonIcon:getWidth()/2
     local buttonY = 280
     this.exitButton = Button:new(buttonX, buttonY, buttonIcon)
-    this.exitButton.update = function(dt)
-        if love.mouse.isDown(1) and isClikingOnButton(this.exitButton) then
-            print('exit')
-        end
-    end
 
     setmetatable(this, self)
     return this
 end
 
 function Menu:update(dt)
-    self.startButton.update(dt)
-    self.exitButton.update(dt)
+    function love.mousepressed(x, y)
+        if CURRENT_GUI ~= 'menu' then return end
+
+        if self.startButton:isClicked() then CURRENT_GUI = 'selection' end
+
+        if self.exitButton:isClicked() then print('exit') end
+    end
 end
 
 function Menu:render()

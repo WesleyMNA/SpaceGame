@@ -20,3 +20,11 @@ function Button:render()
     love.graphics.draw(self.icon, self.x, self.y)
 end
 
+function Button:isClicked()
+    local mouseX, mouseY = love.mouse.getPosition()
+    local bool = mouseX > self.x and mouseX < self.x + self.width and
+            mouseY > self.y and mouseY < self.y + self.height
+
+    return bool
+end
+

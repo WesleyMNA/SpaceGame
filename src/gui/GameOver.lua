@@ -16,29 +16,24 @@ function GameOver:new(background, manager)
     local menuX = (WINDOW_WIDTH / 2) - 100
     local menuY = WINDOW_HEIGHT / 2
     this.menuButton = Button:new(menuX, menuY, menuIcon)
-    this.menuButton.update = function(dt)
-        if love.mouse.isDown(1) and isClikingOnButton(this.menuButton) then
-            CURRENT_GUI = 'menu'
-        end
-    end
 
     local playIcon = love.graphics.newImage('sprites/gui/buttons/play.png')
     local playX = WINDOW_WIDTH / 2 + 50
     local playY = WINDOW_HEIGHT / 2
     this.playButton = Button:new(playX, playY, playIcon)
-    this.playButton.update = function(dt)
-        if love.mouse.isDown(1) and isClikingOnButton(this.playButton) then
-            CURRENT_GUI = 'selection'
-        end
-    end
 
     setmetatable(this, self)
     return this
 end
 
 function GameOver:update(dt)
-    self.menuButton.update(dt)
-    self.playButton.update(dt)
+    function love.mousepressed(x, y)
+        if CURRENT_GUI ~= 'gameOver' then return end
+
+        if self.menuButton:isClicked() then CURRENT_GUI = 'menu' end
+
+        if self.playButton:isClicked() then CURRENT_GUI = 'selection' end
+    end
 end
 
 function GameOver:render()

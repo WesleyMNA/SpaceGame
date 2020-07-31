@@ -25,14 +25,12 @@ end
 
 function Confirm:update(dt)
     function love.mousepressed(x, y)
-        if isClikingOnButton(self.okButton) then
+        if self.okButton:isClicked() then
             self.shop:purchaseShip()
             self.shop.confirmation = false
         end
 
-        if isClikingOnButton(self.closeButton) then
-            self.shop.confirmation = false
-        end
+        if self.closeButton:isClicked() then self.shop.confirmation = false end
     end
 end
 

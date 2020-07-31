@@ -27,13 +27,9 @@ function Pause:update(dt)
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'pause' then return end
 
-        if isClikingOnButton(self.playButton) then
-            CURRENT_GUI = 'map'
-        end
+        if self.playButton:isClicked() then CURRENT_GUI = 'map' end
 
-        if isClikingOnButton(self.menuButton) then
-            CURRENT_GUI = 'menu'
-        end
+        if self.menuButton:isClicked() then CURRENT_GUI = 'menu' end
     end
 end
 
