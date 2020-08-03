@@ -1,5 +1,7 @@
 require('src.Explosion')
 
+local explosionSound = love.audio.newSource('sounds/enemy/explosion.wav', 'static')
+
 Bomb = {}
 Bomb.__index = Bomb
 
@@ -60,6 +62,7 @@ function Bomb:update(dt)
         self.movements[self.currentMovement](dt)
     else
         self.explosion:update(dt)
+        love.audio.play(explosionSound)
     end
 
     self:collide(dt)

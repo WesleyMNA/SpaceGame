@@ -27,9 +27,14 @@ function GameOver:new(background, manager)
 end
 
 function GameOver:update(dt)
+    if RECORD < TIMER then
+        RECORD = TIMER
+    end
+    
+    save()
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'gameOver' then return end
-
+                
         if self.menuButton:isClicked() then CURRENT_GUI = 'menu' end
 
         if self.playButton:isClicked() then CURRENT_GUI = 'selection' end
@@ -42,13 +47,16 @@ function GameOver:render()
 
     love.graphics.setColor(255, 255, 255, 1)
     local iconX = WINDOW_WIDTH/2 - self.icon:getWidth()/2
-    local iconY = 20
+    local iconY = 25
     love.graphics.draw(self.icon, iconX, iconY)
 
     local printX = WINDOW_WIDTH/2 - 50
     local printY = iconY +  self.icon:getHeight()
-    love.graphics.print(POINTS, printX, printY, 0, 2, 2)
+    love.graphics.print(math.floor(RECORD) ..' seconds', printX, printY, 0, 2, 2)
 
     self.menuButton:render()
     self.playButton:render()
+
+    love.graphics.setColor(0, 255, 0, 1)
+    love.graphics.print('Current points: '.. POINTS, 0, 0)
 end

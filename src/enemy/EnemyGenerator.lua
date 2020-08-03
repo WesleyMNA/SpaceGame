@@ -1,6 +1,6 @@
 require('src.enemy.Bomb')
-require('src.enemy.SmallEnemy')
-require('src.enemy.MediumEnemy')
+require('src.enemy.Enemy')
+require('src.enemy.EnemyData')
 
 EnemyGenerator = {}
 EnemyGenerator.__index = EnemyGenerator
@@ -17,6 +17,7 @@ function EnemyGenerator:new(map)
         bombPercentage = 1,
         smallPercentage = 10,
         mediumPercenage = 20,
+        bigPercenage = 30
     }
 
     setmetatable(this, self)
@@ -39,6 +40,10 @@ function EnemyGenerator:update(dt)
 
         if math.random(self.mediumPercenage) == 1 then
             self:createMediumEnemy()
+        end
+
+        if math.random(self.bigPercenage) == 1 then
+            self:createBigEnemy()
         end
 
         self.enemyTimer = 5
@@ -65,7 +70,7 @@ function EnemyGenerator:createSmallEnemy()
     local smallEnemy
     local movementNumber = math.random(3)
     local y = math.random(50, WINDOW_HEIGHT - 50)
-    smallEnemy = SmallEnemy:new(WINDOW_WIDTH, y, self.map, movementNumber)
+    smallEnemy = Enemy:new(WINDOW_WIDTH, y, self.map, movementNumber, ENEMY_DATA.smallEnemy)
     self.map:addEnemy(smallEnemy)
 end
 
@@ -73,8 +78,16 @@ function EnemyGenerator:createMediumEnemy()
     local mediumEnemy
     local movementNumber = math.random(3)
     local y = math.random(50, WINDOW_HEIGHT - 50)
-    mediumEnemy = MediumEnemy:new(WINDOW_WIDTH, y, self.map, movementNumber)
+    mediumEnemy = Enemy:new(WINDOW_WIDTH, y, self.map, movementNumber,  ENEMY_DATA.mediumEnemy)
     self.map:addEnemy(mediumEnemy)
+end
+
+function EnemyGenerator:createBigEnemy()
+    local bigEnemy
+    local movementNumber = math.random(3)
+    local y = math.random(50, WINDOW_HEIGHT - 50)
+    bigEnemy = Enemy:new(WINDOW_WIDTH, y, self.map, movementNumber,  ENEMY_DATA.bigEnemy)
+    self.map:addEnemy(bigEnemy)
 end
 
 local function changePercentage(number)
@@ -92,5 +105,6 @@ function EnemyGenerator:increaseDifficulty(dt)
         self.bombPercentage = changePercentage(self.bombPercentage)
         self.smallPercentage = changePercentage(self.smallPercentage)
         self.mediumPercenage = changePercentage(self.mediumPercenage)
+        self.bigPercenage = changePercentage(self.bigPercenage)
     end
 end

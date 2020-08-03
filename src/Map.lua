@@ -3,7 +3,12 @@ require('src.player.Player')
 require('src.enemy.EnemyGenerator')
 require('src.CreateCollisionClasses')
 
-POINTS = 0
+RECORD = 0
+
+function createTimer()
+    TIMER = 0
+end
+
 local enemiesTimer = 0
 local wf = require 'libs.windfield'
 
@@ -12,12 +17,16 @@ Map.__index = Map
 
 function Map:new(background, ship)
     local this = {
+        class = 'Map',
+
         background = background,
         mapWidth = math.floor(WINDOW_WIDTH / 64),
         mapHeight = math.floor(WINDOW_HEIGHT / 64),
         world = wf.newWorld(0, 0, true),
         enemies = {}
     }
+
+    createTimer()
 
     createCollisionClasses(this.world)
     this.player = Player:new(WINDOW_HEIGHT/2, 100, this.world, ship)
@@ -40,6 +49,7 @@ function Map:new(background, ship)
 end
 
 function Map:update(dt)
+    TIMER = TIMER + dt
     self.world:update(dt)
     self.pauseButton.update(dt)
     self.player:update(dt)
@@ -56,7 +66,7 @@ function Map:render()
 --    self.world:draw()
 
     love.graphics.setColor(255, 255, 0, 1)
-    love.graphics.print('Points: ' .. POINTS, 75, 0)
+    love.graphics.print('Time: ' .. math.floor(TIMER) ..' seconds', 75, 0)
 end
 
 function Map:addEnemy(enemy)

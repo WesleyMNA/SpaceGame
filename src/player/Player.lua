@@ -2,6 +2,8 @@ require('src.Util')
 require('src.player.Shot')
 require('src.player.ShipsData')
 
+local explosionSound = love.audio.newSource('sounds/player/explosion.wav', 'static')
+
 Player = {}
 Player.__index = Player
 
@@ -82,6 +84,7 @@ function Player:update(dt)
         updateLoop(dt, self.shots)
     else
         self.explosion:update(dt)
+        love.audio.play(explosionSound)
         if self.explosion.animation:hasFinished() then CURRENT_GUI = 'gameOver' end
     end
 end
@@ -106,6 +109,7 @@ function Player:shoot()
         self.y + self.shotY,
         self.currentShip, self.world, self.shots
     )
+    love.audio.play(self.currentShip.shot.sound)
     table.insert(self.shots, shot)
 end
 
