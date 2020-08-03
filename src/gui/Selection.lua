@@ -64,6 +64,7 @@ function Selection:new(background, manager)
 end
 
 function Selection:update(dt)
+    save()
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'selection' then return end
 

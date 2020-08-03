@@ -57,7 +57,7 @@ function EnemyGenerator:createBombs()
     local y = math.random(50, WINDOW_HEIGHT - 50)
 
     for i=1,5 do
-        local delimiter = 25 * i
+        local delimiter = 30 * i
         bomb = Bomb:new(
             WINDOW_WIDTH + delimiter, y, self.map,
             spriteNumber, movementNumber

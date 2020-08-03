@@ -16,6 +16,7 @@ function Player:new(x, y, world, shipNumber)
         y = y,
 
         currentShip = SHIPS_DATA[shipNumber],
+        hit = love.audio.newSource('sounds/player/hit.wav', 'static'),
 
         world = world,
         shots = {}
@@ -67,6 +68,7 @@ function Player:new(x, y, world, shipNumber)
     this.collide = function(dt)
         if this.collider:enter('Enemy') or this.collider:enter('EnemyShot') then
             this.health = this.health - 1
+            love.audio.play(this.hit)
         end
     end
 
