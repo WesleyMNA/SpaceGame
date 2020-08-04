@@ -1,6 +1,6 @@
 # Space Game
 
-  - Every sprite used in this game has been downloaded from craftpix.net
+  - Every sprite in this game has been downloaded from craftpix.net
 
 ![image](https://user-images.githubusercontent.com/33720962/89334996-ca2dcd00-d66d-11ea-8576-36c8871edc61.png)
 
