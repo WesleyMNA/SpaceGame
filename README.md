@@ -1,4 +1,4 @@
-# Space Shooter
+# Space Game
 
   - Every sprite used in this game has been downloaded from craftpix.net
 
