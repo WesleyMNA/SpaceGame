@@ -10,6 +10,8 @@ function Shop:new(background, manager)
         background = background,
         manager= manager,
 
+        errorSound = love.audio.newSource('sounds/gui/error.wav', 'static'),
+        priceColor = {0, 255, 0},
         confirmation = false,
 
         currentShip = 1,
@@ -80,7 +82,11 @@ function Shop:update(dt)
                 if self.forwardButton:isClicked() then self.forwardButton:changeShip() end
 
                 if self.okButton:isClicked() then
-                    if self.price <= POINTS then self.confirmation = true  end
+                    if self.price <= POINTS then 
+                        self.confirmation = true
+                    else
+                        self:purchaseError()
+                    end
                 end
             end
 
@@ -101,7 +107,7 @@ function Shop:render()
 
         love.graphics.draw(self.header.sprite, self.header.x, self.header.y)
         if #self.ships > 0 then
-            love.graphics.setColor(0, 255, 0)
+            love.graphics.setColor(self.priceColor)
             love.graphics.print('Current Points: '..POINTS)
             love.graphics.setColor(255, 255, 0)
             love.graphics.print('Price: '..self.price, 0, 15)
@@ -137,4 +143,9 @@ function Shop:purchaseShip()
     POINTS = POINTS - self.price
     self.manager:resetSelection()
     self.manager:resetShop()
+end
+
+function Shop:purchaseError() 
+    self.priceColor = {255, 0, 0}
+    love.audio.play(self.errorSound)
 end
