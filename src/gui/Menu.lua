@@ -31,7 +31,7 @@ function Menu:update(dt)
 
         if self.startButton:isClicked() then CURRENT_GUI = 'selection' end
 
-        if self.exitButton:isClicked() then print('exit') end
+        if self.exitButton:isClicked() then love.event.quit('exit') end
     end
 end
 
