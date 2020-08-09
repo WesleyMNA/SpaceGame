@@ -19,10 +19,10 @@ function createHeader(path)
     return header
 end
 
-function removeObjectFromMap(t, objetc)
-    local index = table.indexOf(t, objetc)
+function removeObjectFromMap(t, object)
+    local index = table.indexOf(t, object)
     table.remove(t, index)
-    objetc.collider:destroy()
+    object.collider:destroy()
 end
 
 function table.indexOf(t, object)

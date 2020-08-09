@@ -33,7 +33,7 @@ function Shot:new(x, y, ship, world, shotsTable)
 
     this.behaviors = {
         move = function(dt)
-            if this.x > WINDOW_WIDTH - 50 or this.collider:enter('Enemy') then
+            if this:isOutOfMap() or this.collider:enter('Enemy') then
                 this.state = 'collide'
             else
                 this.x = this.x + this.speed * dt
@@ -47,7 +47,7 @@ function Shot:new(x, y, ship, world, shotsTable)
             end
         end
     }
-    
+
     setmetatable(this, self)
     return this
 end
@@ -63,4 +63,9 @@ end
 function Shot:render()
     love.graphics.setColor(255,255,255,1)
     love.graphics.draw(self.spritesheet, self.quad, self.x, self.y)
+end
+
+function Shot:isOutOfMap()
+    if self.x > WINDOW_WIDTH - 50 then return true end
+    return false
 end
