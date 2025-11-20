@@ -10,23 +10,27 @@ CURRENT_GUI = 'menu'
 GUIManager = {}
 GUIManager.__index = GUIManager
 
-local randomNumber = math.random(9)
+local function create_background(map_width, map_height)
+    local randomNumber = math.random(9)
+    local background_tile = love.graphics.newImage('sprites/map/Space_Stars' .. randomNumber .. '.png')
+    local background = love.graphics.newSpriteBatch(background_tile, map_width * map_height)
+    for y = 0, map_height do
+        for x = 0, map_width do
+            background:add(x * TILE_SIZE, y * TILE_SIZE)
+        end
+    end
+    return background
+end
 
 function GUIManager:new()
     local this = {
         class = 'GUIManager',
 
-        tile = love.graphics.newImage('sprites/map/Space_Stars'..randomNumber..'.png'),
-        mapWidth = math.floor(WINDOW_WIDTH / 64),
-        mapHeight = math.floor(WINDOW_HEIGHT / 64),
+        mapWidth = math.floor(WINDOW_WIDTH / TILE_SIZE),
+        mapHeight = math.floor(WINDOW_HEIGHT / TILE_SIZE),
     }
 
-    this.background = love.graphics.newSpriteBatch(this.tile, this.mapWidth * this.mapHeight)
-    for y = 0, this.mapHeight do
-        for x = 0, this.mapWidth do
-            this.background:add(x * 64, y * 64)
-        end
-    end
+    this.background = create_background(this.mapWidth, this.mapHeight)
 
     this.guis = {
         menu = Menu:new(this.background),
@@ -48,15 +52,15 @@ function GUIManager:render()
     self.guis[CURRENT_GUI]:render()
 end
 
-function GUIManager:createMap()
+function GUIManager:create_map()
     local ship = self.guis.selection:getCurrentShipId()
     self.guis.map = Map:new(self.background, ship)
 end
 
-function GUIManager:resetSelection()
+function GUIManager:reset_selection()
     self.guis.selection = Selection:new(self.background, self)
 end
 
-function GUIManager:resetShop()
+function GUIManager:reset_shop()
     self.guis.shop = Shop:new(self.background, self)
 end

@@ -3,6 +3,7 @@ require('src.gui.gui_manager')
 require('src.DataManager')
 
 POINTS = 0
+TILE_SIZE = 64
 WINDOW_WIDTH = love.graphics.getWidth()
 WINDOW_HEIGHT = love.graphics.getHeight()
 

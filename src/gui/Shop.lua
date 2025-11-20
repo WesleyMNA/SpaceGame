@@ -141,8 +141,8 @@ function Shop:purchaseShip()
     local id = self.ships[self.currentShip].id
     SHIPS_DATA[id].activated = true
     POINTS = POINTS - self.price
-    self.manager:resetSelection()
-    self.manager:resetShop()
+    self.manager:reset_selection()
+    self.manager:reset_shop()
 end
 
 function Shop:purchaseError() 

@@ -71,7 +71,7 @@ function Selection:update(dt)
         if self.backwardButton:isClicked() then self.backwardButton:changeShip() end
 
         if self.okButton:isClicked() then
-            self.manager:createMap()
+            self.manager:create_map()
             CURRENT_GUI = 'map'
         end
 
