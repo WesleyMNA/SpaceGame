@@ -1,5 +1,5 @@
 require('src.Util')
-require('src.gui.GUIManager')
+require('src.gui.gui_manager')
 require('src.DataManager')
 
 POINTS = 0
