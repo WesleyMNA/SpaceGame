@@ -11,13 +11,13 @@ function Menu:new(background)
         background = background
     }
 
-    local buttonIcon = love.graphics.newImage('sprites/gui/menu/start.png')
-    local buttonX = (WINDOW_WIDTH / 2) - buttonIcon:getWidth()/2
+    local buttonIcon = 'sprites/gui/menu/start.png'
+    local buttonX = (WINDOW_WIDTH / 2) - 50
     local buttonY = 230
     this.startButton = Button:new(buttonX, buttonY, buttonIcon)
 
-    local buttonIcon = love.graphics.newImage('sprites/gui/menu/exit.png')
-    local buttonX = (WINDOW_WIDTH / 2) - buttonIcon:getWidth()/2
+    local buttonIcon = 'sprites/gui/menu/exit.png'
+    local buttonX = (WINDOW_WIDTH / 2) - 50
     local buttonY = 280
     this.exitButton = Button:new(buttonX, buttonY, buttonIcon)
 

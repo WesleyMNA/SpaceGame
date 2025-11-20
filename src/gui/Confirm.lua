@@ -9,12 +9,12 @@ function Confirm:new(shop)
         shop = shop
     }
 
-    local okIcon = love.graphics.newImage('sprites/gui/buttons/ok.png')
+    local okIcon = 'sprites/gui/buttons/ok.png'
     local okX = (WINDOW_WIDTH / 2) - 100
     local okY = WINDOW_HEIGHT / 2
     this.okButton = Button:new(okX, okY, okIcon)
 
-    local closeIcon = love.graphics.newImage('sprites/gui/buttons/close.png')
+    local closeIcon = 'sprites/gui/buttons/close.png'
     local closeX = WINDOW_WIDTH / 2 + 50
     local closeY = WINDOW_HEIGHT / 2
     this.closeButton = Button:new(closeX, closeY, closeIcon)

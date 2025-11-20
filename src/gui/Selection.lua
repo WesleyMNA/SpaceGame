@@ -21,7 +21,7 @@ function Selection:new(background, manager)
     this.numberOfShips = 0
     this:getActivatedShips()
 
-    local backwardIcon = love.graphics.newImage('sprites/gui/selection/backward.png')
+    local backwardIcon = 'sprites/gui/selection/backward.png'
     local buttonY = 50
     this.backwardButton = Button:new(100, buttonY, backwardIcon)
     this.backwardButton.changeShip = function()
@@ -32,10 +32,10 @@ function Selection:new(background, manager)
         end
     end
 
-    local tableIcon = love.graphics.newImage('sprites/gui/selection/table.png')
+    local tableIcon = 'sprites/gui/selection/table.png'
     this.tableButton = Button:new(160, buttonY, tableIcon)
 
-    local forwardIcon = love.graphics.newImage('sprites/gui/selection/forward.png')
+    local forwardIcon = 'sprites/gui/selection/forward.png'
     local buttonX = 160 + WINDOW_WIDTH/2 + 10
     this.forwardButton = Button:new(buttonX, buttonY, forwardIcon)
     this.forwardButton.changeShip = function()
@@ -46,16 +46,16 @@ function Selection:new(background, manager)
         end
     end
 
-    local closeIcon = love.graphics.newImage('sprites/gui/buttons/close.png')
+    local closeIcon = 'sprites/gui/buttons/close.png'
     local buttonX = WINDOW_WIDTH/2 + 25
-    local buttonY = buttonY + tableIcon:getHeight() + 10
+    local buttonY = buttonY + 183 + 10
     this.closeButton = Button:new(buttonX, buttonY, closeIcon)
 
-    local okIcon = love.graphics.newImage('sprites/gui/buttons/ok.png')
+    local okIcon = 'sprites/gui/buttons/ok.png'
     local buttonX = WINDOW_WIDTH/2 - 75
     this.okButton = Button:new(buttonX, buttonY, okIcon)
 
-    local shopIcon = love.graphics.newImage('sprites/gui/selection/shop.png')
+    local shopIcon = 'sprites/gui/selection/shop.png'
     local buttonX = WINDOW_WIDTH - 50
     local buttonY = WINDOW_HEIGHT - 50
     this.shopButton = Button:new(buttonX, buttonY, shopIcon)

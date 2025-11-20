@@ -32,7 +32,7 @@ function Map:new(background, ship)
     this.player = Player:new(WINDOW_HEIGHT/2, 100, this.world, ship)
     this.enemyGenerator = EnemyGenerator:new(this)
 
-    local pauseIcon = love.graphics.newImage('sprites/gui/buttons/pause.png')
+    local pauseIcon = 'sprites/gui/buttons/pause.png'
     local buttonX = WINDOW_WIDTH - 50
     local buttonY = 0
     this.pauseButton = Button:new(buttonX, buttonY, pauseIcon)

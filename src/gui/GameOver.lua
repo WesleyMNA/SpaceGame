@@ -12,12 +12,12 @@ function GameOver:new(background, manager)
         manager = manager
     }
 
-    local menuIcon = love.graphics.newImage('sprites/gui/buttons/menu.png')
+    local menuIcon = 'sprites/gui/buttons/menu.png'
     local menuX = (WINDOW_WIDTH / 2) - 100
     local menuY = WINDOW_HEIGHT / 2
     this.menuButton = Button:new(menuX, menuY, menuIcon)
 
-    local playIcon = love.graphics.newImage('sprites/gui/buttons/play.png')
+    local playIcon = 'sprites/gui/buttons/play.png'
     local playX = WINDOW_WIDTH / 2 + 50
     local playY = WINDOW_HEIGHT / 2
     this.playButton = Button:new(playX, playY, playIcon)

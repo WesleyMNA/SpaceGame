@@ -1,12 +1,12 @@
 Button = {}
 Button.__index = Button
 
-function Button:new(x, y, icon)
+function Button:new(x, y, icon_path)
     local this = {
         class = 'Button',
         x = x,
         y = y,
-        icon = icon,
+        icon = love.graphics.newImage(icon_path),
     }
 
     setmetatable(this, self)
