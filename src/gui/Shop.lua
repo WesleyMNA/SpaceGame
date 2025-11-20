@@ -77,11 +77,11 @@ function Shop:update(dt)
             if CURRENT_GUI ~= 'shop' or self.confirmation then return end
 
             if #self.ships > 0 then
-                if self.backwardButton:isClicked() then self.backwardButton:changeShip() end
+                if self.backwardButton:is_clicked() then self.backwardButton:changeShip() end
 
-                if self.forwardButton:isClicked() then self.forwardButton:changeShip() end
+                if self.forwardButton:is_clicked() then self.forwardButton:changeShip() end
 
-                if self.okButton:isClicked() then
+                if self.okButton:is_clicked() then
                     if self.price <= POINTS then 
                         self.confirmation = true
                     else
@@ -90,7 +90,7 @@ function Shop:update(dt)
                 end
             end
 
-            if self.closeButton:isClicked() then CURRENT_GUI = 'selection' end
+            if self.closeButton:is_clicked() then CURRENT_GUI = 'selection' end
         end
     end
 end

@@ -7,8 +7,6 @@ function Button:new(x, y, icon)
         x = x,
         y = y,
         icon = icon,
-        width = icon:getWidth(),
-        height = icon:getHeight()
     }
 
     setmetatable(this, self)
@@ -20,11 +18,8 @@ function Button:render()
     love.graphics.draw(self.icon, self.x, self.y)
 end
 
-function Button:isClicked()
-    local mouseX, mouseY = love.mouse.getPosition()
-    local bool = mouseX > self.x and mouseX < self.x + self.width and
-            mouseY > self.y and mouseY < self.y + self.height
-
-    return bool
+function Button:is_clicked()
+    local m_x, m_y = love.mouse.getPosition()
+    return m_x > self.x and m_x < self.x + self.icon:getWidth() and
+        m_y > self.y and m_y < self.y + self.icon:getHeight()
 end
-

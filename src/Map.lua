@@ -40,7 +40,7 @@ function Map:new(background, ship)
         function love.mousepressed(x, y)
             if CURRENT_GUI ~= 'map' then return end
 
-            if this.pauseButton:isClicked() then CURRENT_GUI = 'pause' end
+            if this.pauseButton:is_clicked() then CURRENT_GUI = 'pause' end
         end
     end
 

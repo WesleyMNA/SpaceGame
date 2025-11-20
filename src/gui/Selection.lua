@@ -1,4 +1,4 @@
-require('src.gui.Button')
+require('src.gui.button')
 
 Selection = {}
 Selection.__index = Selection
@@ -68,18 +68,18 @@ function Selection:update(dt)
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'selection' then return end
 
-        if self.backwardButton:isClicked() then self.backwardButton:changeShip() end
+        if self.backwardButton:is_clicked() then self.backwardButton:changeShip() end
 
-        if self.okButton:isClicked() then
+        if self.okButton:is_clicked() then
             self.manager:create_map()
             CURRENT_GUI = 'map'
         end
 
-        if self.closeButton:isClicked() then CURRENT_GUI = 'menu' end
+        if self.closeButton:is_clicked() then CURRENT_GUI = 'menu' end
 
-        if self.forwardButton:isClicked() then self.forwardButton:changeShip() end
+        if self.forwardButton:is_clicked() then self.forwardButton:changeShip() end
 
-        if self.shopButton:isClicked() then CURRENT_GUI = 'shop' end
+        if self.shopButton:is_clicked() then CURRENT_GUI = 'shop' end
     end
 end
 

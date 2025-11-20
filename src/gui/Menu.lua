@@ -1,4 +1,4 @@
-require('src.gui.Button')
+require('src.gui.button')
 
 Menu = {}
 Menu.__index = Menu
@@ -29,9 +29,9 @@ function Menu:update(dt)
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'menu' then return end
 
-        if self.startButton:isClicked() then CURRENT_GUI = 'selection' end
+        if self.startButton:is_clicked() then CURRENT_GUI = 'selection' end
 
-        if self.exitButton:isClicked() then love.event.quit('exit') end
+        if self.exitButton:is_clicked() then love.event.quit('exit') end
     end
 end
 
