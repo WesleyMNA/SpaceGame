@@ -9,8 +9,8 @@ WINDOW_HEIGHT = love.graphics.getHeight()
 local guiManager
 local mainTheme = love.audio.newSource('sounds/main_theme.mp3', 'static')
 
-function playMainTheme()
-    if not mainTheme:isPlaying() then 
+local function start_main_theme()
+    if not mainTheme:isPlaying() then
         love.audio.play(mainTheme)
     end
 end
@@ -22,11 +22,10 @@ function love.load()
 end
 
 function love.update(dt)
-    playMainTheme()
+    start_main_theme()
     guiManager:update(dt)
 end
 
 function love.draw()
     guiManager:render()
 end
-
