@@ -20,15 +20,25 @@ function Shop:new(manager)
         close_button = Button:new(
             window.get_center_x() + 25,
             close_ok_button_y,
-            'sprites/gui/buttons/close.png'
-        ),
-        ok_button = Button:new(
-            window.get_center_x() - 75,
-            close_ok_button_y,
-            'sprites/gui/buttons/ok.png'
+            'sprites/gui/buttons/close.png',
+            function()
+                CURRENT_GUI = 'selection'
+            end
         ),
     }
 
+    this.ok_button = Button:new(
+        window.get_center_x() - 75,
+        close_ok_button_y,
+        'sprites/gui/buttons/ok.png',
+        function()
+            if this.price <= POINTS then
+                this.confirmation = true
+            else
+                this:purchase_error()
+            end
+        end
+    )
     this.confirm = Confirm:new(this)
 
     this.ship_x = window.get_center_x() - 32
@@ -43,28 +53,28 @@ function Shop:new(manager)
     this.backward_button = Button:new(
         100,
         button_y,
-        'sprites/gui/selection/backward.png'
-    )
-    this.backward_button.changeShip = function()
-        if this.current_ship <= 1 then
-            this.current_ship = this.number_of_ships
-        else
-            this.current_ship = this.current_ship - 1
+        'sprites/gui/selection/backward.png',
+        function()
+            if this.current_ship <= 1 then
+                this.current_ship = this.number_of_ships
+            else
+                this.current_ship = this.current_ship - 1
+            end
         end
-    end
+    )
     local buttonX = 160 + window.get_center_x() + 10
     this.forward_button = Button:new(
         buttonX,
         button_y,
-        'sprites/gui/selection/forward.png'
-    )
-    this.forward_button.changeShip = function()
-        if this.current_ship >= this.number_of_ships then
-            this.current_ship = 1
-        else
-            this.current_ship = this.current_ship + 1
+        'sprites/gui/selection/forward.png',
+        function()
+            if this.current_ship >= this.number_of_ships then
+                this.current_ship = 1
+            else
+                this.current_ship = this.current_ship + 1
+            end
         end
-    end
+    )
 
     this.confirm_button = Button:new(
         160,
@@ -76,31 +86,23 @@ function Shop:new(manager)
 end
 
 function Shop:update(dt)
-    if self.confirmation then
-        self.confirm:update(dt)
-    else
-        if #self.ships > 0 then
-            self.price = SHIPS_DATA[self.ships[self.current_ship].id].price
-        end
+    if not self.confirmation and #self.ships > 0 then
+        self.price = SHIPS_DATA[self.ships[self.current_ship].id].price
     end
 end
 
 function Shop:mousepressed(x, y)
-    if #self.ships > 0 then
-        if self.backward_button:is_clicked(x, y) then self.backward_button:changeShip() end
-
-        if self.forward_button:is_clicked(x, y) then self.forward_button:changeShip() end
-
-        if self.ok_button:is_clicked(x, y) then
-            if self.price <= POINTS then
-                self.confirmation = true
-            else
-                self:purchase_error()
-            end
-        end
+    if self.confirmation then
+        self.confirm:mousepressed(x, y)
     end
 
-    if self.close_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
+    if #self.ships > 0 then
+        self.backward_button:mousepressed(x, y)
+        self.forward_button:mousepressed(x, y)
+        self.ok_button:mousepressed(x, y)
+    end
+
+    self.close_button:mousepressed(x, y)
 end
 
 function Shop:draw()

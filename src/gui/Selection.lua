@@ -18,20 +18,30 @@ function Selection:new(manager)
         close_button = Button:new(
             window.get_center_x() + 25,
             close_ok_button_y,
-            'sprites/gui/buttons/close.png'
-        ),
-        ok_button = Button:new(
-            window.get_center_x() - 75,
-            close_ok_button_y,
-            'sprites/gui/buttons/ok.png'
+            'sprites/gui/buttons/close.png',
+            function()
+                CURRENT_GUI = 'menu'
+            end
         ),
         shop_button = Button:new(
             window.get_width() - 50,
             window.get_height() - 50,
-            'sprites/gui/selection/shop.png'
+            'sprites/gui/selection/shop.png',
+            function()
+                CURRENT_GUI = 'shop'
+            end
         ),
-
     }
+
+    this.ok_button = Button:new(
+        window.get_center_x() - 75,
+        close_ok_button_y,
+        'sprites/gui/buttons/ok.png',
+        function()
+            this.manager:create_map()
+            CURRENT_GUI = 'map'
+        end
+    )
 
     setmetatable(this, self)
 
@@ -41,28 +51,28 @@ function Selection:new(manager)
     this.backward_button = Button:new(
         100,
         button_y,
-        'sprites/gui/selection/backward.png'
-    )
-    this.backward_button.changeShip = function()
-        if this.current_ship <= 1 then
-            this.current_ship = this.number_of_ships
-        else
-            this.current_ship = this.current_ship - 1
+        'sprites/gui/selection/backward.png',
+        function()
+            if this.current_ship <= 1 then
+                this.current_ship = this.number_of_ships
+            else
+                this.current_ship = this.current_ship - 1
+            end
         end
-    end
+    )
 
     this.forward_button = Button:new(
         window.get_center_x() + 170,
         button_y,
-        'sprites/gui/selection/forward.png'
-    )
-    this.forward_button.changeShip = function()
-        if this.current_ship >= this.number_of_ships then
-            this.current_ship = 1
-        else
-            this.current_ship = this.current_ship + 1
+        'sprites/gui/selection/forward.png',
+        function()
+            if this.current_ship >= this.number_of_ships then
+                this.current_ship = 1
+            else
+                this.current_ship = this.current_ship + 1
+            end
         end
-    end
+    )
 
     this.table_button = Button:new(
         160,
@@ -78,18 +88,11 @@ function Selection:update(dt)
 end
 
 function Selection:mousepressed(x, y)
-    if self.backward_button:is_clicked(x, y) then self.backward_button:changeShip() end
-
-    if self.ok_button:is_clicked(x, y) then
-        self.manager:create_map()
-        CURRENT_GUI = 'map'
-    end
-
-    if self.close_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
-
-    if self.forward_button:is_clicked(x, y) then self.forward_button:changeShip() end
-
-    if self.shop_button:is_clicked(x, y) then CURRENT_GUI = 'shop' end
+    self.backward_button:mousepressed(x, y)
+    self.forward_button:mousepressed(x, y)
+    self.ok_button:mousepressed(x, y)
+    self.close_button:mousepressed(x, y)
+    self.shop_button:mousepressed(x, y)
 end
 
 function Selection:draw()

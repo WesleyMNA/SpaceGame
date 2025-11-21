@@ -8,29 +8,32 @@ function Confirm:new(shop)
         class = 'Confirm',
         shop = shop,
         icon = love.graphics.newImage('sprites/gui/headers/purchase.png'),
-        ok_button = Button:new(
-            window.get_center_x() - 100,
-            window.get_center_y(),
-            'sprites/gui/buttons/ok.png'
-        ),
-        close_button = Button:new(
-            window.get_center_x() + 50,
-            window.get_center_y(),
-            'sprites/gui/buttons/close.png'
-        ),
     }
+    this.ok_button = Button:new(
+        window.get_center_x() - 100,
+        window.get_center_y(),
+        'sprites/gui/buttons/ok.png',
+        function()
+            this.shop:purchase_ship()
+            this.shop.confirmation = false
+        end
+    )
+    this.close_button = Button:new(
+        window.get_center_x() + 50,
+        window.get_center_y(),
+        'sprites/gui/buttons/close.png',
+        function()
+            this.shop.confirmation = false
+        end
+    )
 
     setmetatable(this, self)
     return this
 end
 
 function Confirm:mousepressed(x, y)
-    if self.ok_button:is_clicked(x, y) then
-        self.shop:purchaseShip()
-        self.shop.confirmation = false
-    end
-
-    if self.close_button:is_clicked(x, y) then self.shop.confirmation = false end
+    self.ok_button:mousepressed(x, y)
+    self.close_button:mousepressed(x, y)
 end
 
 function Confirm:draw()

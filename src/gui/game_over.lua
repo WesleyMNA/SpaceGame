@@ -13,12 +13,18 @@ function GameOver:new(manager)
         menu_button = Button:new(
             window.get_center_x() - 100,
             window.get_center_y(),
-            'sprites/gui/buttons/menu.png'
+            'sprites/gui/buttons/menu.png',
+            function()
+                CURRENT_GUI = 'menu'
+            end
         ),
         play_button = Button:new(
             window.get_center_x() + 50,
             window.get_center_y(),
-            'sprites/gui/buttons/play.png'
+            'sprites/gui/buttons/play.png',
+            function()
+                CURRENT_GUI = 'selection'
+            end
         )
     }
 
@@ -35,9 +41,8 @@ function GameOver:update(dt)
 end
 
 function GameOver:mousepressed(x, y)
-    if self.menu_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
-
-    if self.play_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
+    self.menu_button:mousepressed(x, y)
+    self.play_button:mousepressed(x, y)
 end
 
 function GameOver:draw()

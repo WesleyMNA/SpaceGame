@@ -12,12 +12,18 @@ function Menu:new()
         start_button = Button:new(
             window.get_center_x() - 50,
             230,
-            'sprites/gui/menu/start.png'
+            'sprites/gui/menu/start.png',
+            function()
+                CURRENT_GUI = 'selection'
+            end
         ),
         exit_button = Button:new(
             window.get_center_x() - 50,
             280,
-            'sprites/gui/menu/exit.png'
+            'sprites/gui/menu/exit.png',
+            function()
+                love.event.quit('exit')
+            end
         )
     }
 
@@ -26,9 +32,8 @@ function Menu:new()
 end
 
 function Menu:mousepressed(x, y)
-    if self.start_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
-
-    if self.exit_button:is_clicked(x, y) then love.event.quit('exit') end
+    self.start_button:mousepressed(x, y)
+    self.exit_button:mousepressed(x, y)
 end
 
 function Menu:draw()
