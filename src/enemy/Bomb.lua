@@ -72,12 +72,12 @@ function Bomb:update(dt)
     end
 end
 
-function Bomb:render()
+function Bomb:draw()
     love.graphics.setColor(255, 255, 255, 1)
     if self.isAlive then
         love.graphics.draw(self.spritesheet, self.quad, self.x, self.y)
     else
-        self.explosion:render()
+        self.explosion:draw()
     end
 end
 

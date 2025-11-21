@@ -47,7 +47,7 @@ function EnemyShot:update(dt)
     end
 end
 
-function EnemyShot:render()
+function EnemyShot:draw()
     love.graphics.setColor(255,255,255,1)
     love.graphics.draw(self.spritesheet, self.x, self.y)
 end

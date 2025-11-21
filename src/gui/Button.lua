@@ -13,7 +13,7 @@ function Button:new(x, y, icon_path)
     return this
 end
 
-function Button:render()
+function Button:draw()
     love.graphics.setColor(255, 255, 255, 1)
     love.graphics.draw(self.icon, self.x, self.y)
 end

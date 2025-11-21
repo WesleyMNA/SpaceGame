@@ -29,9 +29,9 @@ function Pause:mousepressed(x, y)
     if self.menu_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
 end
 
-function Pause:render()
-    self.menu_button:render()
-    self.play_button:render()
+function Pause:draw()
+    self.menu_button:draw()
+    self.play_button:draw()
 
     local iconX = window.get_center_x() - self.icon:getWidth() / 2
     local iconY = window.get_center_y() - self.icon:getHeight() * 1.5

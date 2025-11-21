@@ -52,7 +52,7 @@ function Explosion:update(dt)
     self.animation:update(dt)
 end
 
-function Explosion:render()
+function Explosion:draw()
     love.graphics.setColor(255, 255, 255, 1)
     if self.object.class == 'Player' then
         love.graphics.draw(

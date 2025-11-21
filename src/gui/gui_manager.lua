@@ -48,11 +48,11 @@ function GUIManager:update(dt)
     end
 end
 
-function GUIManager:render()
+function GUIManager:draw()
     love.graphics.setColor(255, 255, 255, 0.3)
     love.graphics.draw(self.background)
 
-    self.guis[CURRENT_GUI]:render()
+    self.guis[CURRENT_GUI]:draw()
 end
 
 function GUIManager:mousepressed(x, y)

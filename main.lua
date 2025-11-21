@@ -28,7 +28,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    gui_manager:render()
+    gui_manager:draw()
 end
 
 function love.mousepressed(x, y)

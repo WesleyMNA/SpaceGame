@@ -103,12 +103,12 @@ function Shop:mousepressed(x, y)
     if self.close_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
 end
 
-function Shop:render()
+function Shop:draw()
     if self.confirmation then
-        self.confirm:render()
+        self.confirm:draw()
     else
-        self.backward_button:render()
-        self.confirm_button:render()
+        self.backward_button:draw()
+        self.confirm_button:draw()
 
         love.graphics.draw(self.header.sprite, self.header.x, self.header.y)
         if #self.ships > 0 then
@@ -124,9 +124,9 @@ function Shop:render()
         else
             love.graphics.print('You have bought every ship!', self.ship_x - 50, self.ship_y)
         end
-        self.forward_button:render()
-        self.ok_button:render()
-        self.close_button:render()
+        self.forward_button:draw()
+        self.ok_button:draw()
+        self.close_button:draw()
     end
 end
 

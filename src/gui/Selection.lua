@@ -92,19 +92,19 @@ function Selection:mousepressed(x, y)
     if self.shop_button:is_clicked(x, y) then CURRENT_GUI = 'shop' end
 end
 
-function Selection:render()
-    self.backward_button:render()
-    self.table_button:render()
+function Selection:draw()
+    self.backward_button:draw()
+    self.table_button:draw()
     love.graphics.draw(self.header.sprite, self.header.x, self.header.y)
     local shipX = (window.get_center_x()) - 32
     local shipY = 100
     love.graphics.draw(
         self.ships[self.current_ship].sprite, shipX, shipY
     )
-    self.forward_button:render()
-    self.ok_button:render()
-    self.close_button:render()
-    self.shop_button:render()
+    self.forward_button:draw()
+    self.ok_button:draw()
+    self.close_button:draw()
+    self.shop_button:draw()
 end
 
 function Selection:get_activated_ships()

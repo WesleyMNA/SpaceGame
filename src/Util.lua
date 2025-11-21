@@ -1,6 +1,6 @@
 function renderLoop(objectList)
     for i, object in pairs(objectList) do
-        object:render()
+        object:draw()
     end
 end
 

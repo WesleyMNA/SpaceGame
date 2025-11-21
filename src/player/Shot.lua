@@ -60,7 +60,7 @@ function Shot:update(dt)
     end
 end
 
-function Shot:render()
+function Shot:draw()
     love.graphics.setColor(255,255,255,1)
     love.graphics.draw(self.spritesheet, self.quad, self.x, self.y)
 end

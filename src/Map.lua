@@ -52,9 +52,9 @@ function Map:mousepressed(x, y)
     if self.pauseButton:is_clicked(x, y) then CURRENT_GUI = 'pause' end
 end
 
-function Map:render()
-    self.pauseButton:render()
-    self.player:render()
+function Map:draw()
+    self.pauseButton:draw()
+    self.player:draw()
     renderLoop(self.enemies)
     --    self.world:draw()
 

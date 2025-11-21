@@ -40,7 +40,7 @@ function GameOver:mousepressed(x, y)
     if self.play_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
 end
 
-function GameOver:render()
+function GameOver:draw()
     love.graphics.setColor(255, 255, 255, 1)
     local iconX = window.get_center_x() - self.icon:getWidth() / 2
     local iconY = 25
@@ -50,8 +50,8 @@ function GameOver:render()
     local printY = iconY + self.icon:getHeight()
     love.graphics.print(math.floor(RECORD) .. ' seconds', printX, printY, 0, 2, 2)
 
-    self.menu_button:render()
-    self.play_button:render()
+    self.menu_button:draw()
+    self.play_button:draw()
 
     love.graphics.setColor(0, 255, 0, 1)
     love.graphics.print('Current points: ' .. POINTS, 0, 0)

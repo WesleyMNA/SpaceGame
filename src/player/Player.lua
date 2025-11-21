@@ -91,7 +91,7 @@ function Player:update(dt)
     end
 end
 
-function Player:render()
+function Player:draw()
     if self:isAlive() then
         love.graphics.setColor(255,255,255,1)
         love.graphics.draw(self.spritesheet, self.x, self.y)
@@ -101,7 +101,7 @@ function Player:render()
 
         renderLoop(self.shots)
     else
-        self.explosion:render()
+        self.explosion:draw()
     end
 end
 

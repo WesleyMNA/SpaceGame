@@ -33,12 +33,12 @@ function Confirm:mousepressed(x, y)
     if self.close_button:is_clicked(x, y) then self.shop.confirmation = false end
 end
 
-function Confirm:render()
+function Confirm:draw()
     love.graphics.setColor(255, 255, 255, 1)
     local iconX = window.get_center_x() - self.icon:getWidth() / 2
     local iconY = 50
     love.graphics.draw(self.icon, iconX, iconY)
 
-    self.ok_button:render()
-    self.close_button:render()
+    self.ok_button:draw()
+    self.close_button:draw()
 end

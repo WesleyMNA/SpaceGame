@@ -85,12 +85,12 @@ function Enemy:update(dt)
     end
 end
 
-function Enemy:render()
+function Enemy:draw()
     love.graphics.setColor(255, 255, 255, 1)
     if self.isAlive then
         love.graphics.draw(self.spritesheet, self.x, self.y)
     else
-        self.explosion:render()
+        self.explosion:draw()
     end
     renderLoop(self.shots)
 end

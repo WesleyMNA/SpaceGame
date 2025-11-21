@@ -31,9 +31,9 @@ function Menu:mousepressed(x, y)
     if self.exit_button:is_clicked(x, y) then love.event.quit('exit') end
 end
 
-function Menu:render()
-    self.start_button:render()
-    self.exit_button:render()
+function Menu:draw()
+    self.start_button:draw()
+    self.exit_button:draw()
 
     local iconX = window.get_center_x() - self.icon:getWidth() / 2
     love.graphics.draw(self.icon, iconX, 20)
