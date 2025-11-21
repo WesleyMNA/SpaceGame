@@ -5,10 +5,9 @@ local window = require('src.utils.window')
 GameOver = {}
 GameOver.__index = GameOver
 
-function GameOver:new(background, manager)
+function GameOver:new(manager)
     local this = {
         class = 'GameOver',
-        background = background,
         manager = manager,
         icon = love.graphics.newImage('sprites/gui/headers/record.png'),
         menu_button = Button:new(
@@ -43,9 +42,6 @@ function GameOver:update(dt)
 end
 
 function GameOver:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
-
     love.graphics.setColor(255, 255, 255, 1)
     local iconX = window.get_center_x() - self.icon:getWidth() / 2
     local iconY = 25

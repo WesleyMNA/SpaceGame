@@ -31,11 +31,11 @@ function GUIManager:new()
     }
 
     this.guis = {
-        menu = Menu:new(this.background),
-        pause = Pause:new(this.background),
-        gameOver = GameOver:new(this.background, this),
-        selection = Selection:new(this.background, this),
-        shop = Shop:new(this.background, this)
+        menu = Menu:new(),
+        pause = Pause:new(),
+        gameOver = GameOver:new(this),
+        selection = Selection:new(this),
+        shop = Shop:new(this)
     }
 
     setmetatable(this, self)
@@ -47,18 +47,21 @@ function GUIManager:update(dt)
 end
 
 function GUIManager:render()
+    love.graphics.setColor(255, 255, 255, 0.3)
+    love.graphics.draw(self.background)
+
     self.guis[CURRENT_GUI]:render()
 end
 
 function GUIManager:create_map()
     local ship = self.guis.selection:get_current_ship_id()
-    self.guis.map = Map:new(self.background, ship)
+    self.guis.map = Map:new(ship)
 end
 
 function GUIManager:reset_selection()
-    self.guis.selection = Selection:new(self.background, self)
+    self.guis.selection = Selection:new(self)
 end
 
 function GUIManager:reset_shop()
-    self.guis.shop = Shop:new(self.background, self)
+    self.guis.shop = Shop:new(self)
 end

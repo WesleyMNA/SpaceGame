@@ -5,10 +5,9 @@ local window = require('src.utils.window')
 Menu = {}
 Menu.__index = Menu
 
-function Menu:new(background)
+function Menu:new()
     local this = {
         class = 'Menu',
-        background = background,
         icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
         start_button = Button:new(
             window.get_center_x() - 50,
@@ -37,9 +36,6 @@ function Menu:update(dt)
 end
 
 function Menu:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
-
     self.start_button:render()
     self.exit_button:render()
 

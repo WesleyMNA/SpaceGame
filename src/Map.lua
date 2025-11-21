@@ -15,11 +15,10 @@ local wf = require 'libs.windfield'
 Map = {}
 Map.__index = Map
 
-function Map:new(background, ship)
+function Map:new(ship)
     local this = {
         class = 'Map',
 
-        background = background,
         mapWidth = math.floor(WINDOW_WIDTH / 64),
         mapHeight = math.floor(WINDOW_HEIGHT / 64),
         world = wf.newWorld(0, 0, true),
@@ -58,8 +57,6 @@ function Map:update(dt)
 end
 
 function Map:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
     self.pauseButton:render()
     self.player:render()
     renderLoop(self.enemies)

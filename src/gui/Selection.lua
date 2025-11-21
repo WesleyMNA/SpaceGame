@@ -6,11 +6,10 @@ local window = require('src.utils.window')
 Selection = {}
 Selection.__index = Selection
 
-function Selection:new(background, manager)
+function Selection:new(manager)
     local close_ok_button_y = 243
     local this = {
         class = 'Selection',
-        background = background,
         manager = manager,
         header = screen.create_header('sprites/gui/headers/hangar.png'),
         current_ship = 1,
@@ -95,8 +94,6 @@ function Selection:update(dt)
 end
 
 function Selection:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
     self.backward_button:render()
     self.table_button:render()
     love.graphics.draw(self.header.sprite, self.header.x, self.header.y)

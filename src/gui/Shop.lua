@@ -6,11 +6,10 @@ local window = require('src.utils.window')
 Shop = {}
 Shop.__index = Shop
 
-function Shop:new(background, manager)
+function Shop:new(manager)
     local close_ok_button_y = 243
     local this = {
         class = 'Shop',
-        background = background,
         manager = manager,
         header = screen.create_header('sprites/gui/headers/hangar.png'),
         error_sound = love.audio.newSource('sounds/gui/error.wav', 'static'),
@@ -106,9 +105,6 @@ function Shop:update(dt)
 end
 
 function Shop:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
-
     if self.confirmation then
         self.confirm:render()
     else

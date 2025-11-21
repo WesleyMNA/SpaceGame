@@ -3,10 +3,9 @@ local window = require('src.utils.window')
 Pause = {}
 Pause.__index = Pause
 
-function Pause:new(background)
+function Pause:new()
     local this = {
         class = 'Pause',
-        background = background,
         icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
         menu_button = Button:new(
             window.get_center_x() - 100,
@@ -35,9 +34,6 @@ function Pause:update(dt)
 end
 
 function Pause:render()
-    love.graphics.setColor(255, 255, 255, 0.3)
-    love.graphics.draw(self.background)
-
     self.menu_button:render()
     self.play_button:render()
 
