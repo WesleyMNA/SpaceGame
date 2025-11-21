@@ -32,13 +32,12 @@ function GameOver:update(dt)
     end
 
     save()
-    function love.mousepressed(x, y)
-        if CURRENT_GUI ~= 'gameOver' then return end
+end
 
-        if self.menu_button:is_clicked() then CURRENT_GUI = 'menu' end
+function GameOver:mousepressed(x, y)
+    if self.menu_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
 
-        if self.play_button:is_clicked() then CURRENT_GUI = 'selection' end
-    end
+    if self.play_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
 end
 
 function GameOver:render()

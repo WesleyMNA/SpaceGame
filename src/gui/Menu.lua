@@ -25,14 +25,10 @@ function Menu:new()
     return this
 end
 
-function Menu:update(dt)
-    function love.mousepressed(x, y)
-        if CURRENT_GUI ~= 'menu' then return end
+function Menu:mousepressed(x, y)
+    if self.start_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
 
-        if self.start_button:is_clicked() then CURRENT_GUI = 'selection' end
-
-        if self.exit_button:is_clicked() then love.event.quit('exit') end
-    end
+    if self.exit_button:is_clicked(x, y) then love.event.quit('exit') end
 end
 
 function Menu:render()

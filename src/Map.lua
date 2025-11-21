@@ -28,20 +28,13 @@ function Map:new(ship)
     createTimer()
 
     createCollisionClasses(this.world)
-    this.player = Player:new(WINDOW_HEIGHT/2, 100, this.world, ship)
+    this.player = Player:new(WINDOW_HEIGHT / 2, 100, this.world, ship)
     this.enemyGenerator = EnemyGenerator:new(this)
 
     local pauseIcon = 'sprites/gui/buttons/pause.png'
     local buttonX = WINDOW_WIDTH - 50
     local buttonY = 0
     this.pauseButton = Button:new(buttonX, buttonY, pauseIcon)
-    this.pauseButton.update = function(dt)
-        function love.mousepressed(x, y)
-            if CURRENT_GUI ~= 'map' then return end
-
-            if this.pauseButton:is_clicked() then CURRENT_GUI = 'pause' end
-        end
-    end
 
     setmetatable(this, self)
     return this
@@ -50,20 +43,23 @@ end
 function Map:update(dt)
     TIMER = TIMER + dt
     self.world:update(dt)
-    self.pauseButton.update(dt)
     self.player:update(dt)
     self.enemyGenerator:update(dt)
     updateLoop(dt, self.enemies)
+end
+
+function Map:mousepressed(x, y)
+    if self.pauseButton:is_clicked(x, y) then CURRENT_GUI = 'pause' end
 end
 
 function Map:render()
     self.pauseButton:render()
     self.player:render()
     renderLoop(self.enemies)
---    self.world:draw()
+    --    self.world:draw()
 
     love.graphics.setColor(255, 255, 0, 1)
-    love.graphics.print('Time: ' .. math.floor(TIMER) ..' seconds', 75, 0)
+    love.graphics.print('Time: ' .. math.floor(TIMER) .. ' seconds', 75, 0)
 end
 
 function Map:addEnemy(enemy)

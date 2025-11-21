@@ -75,22 +75,21 @@ end
 
 function Selection:update(dt)
     save()
-    function love.mousepressed(x, y)
-        if CURRENT_GUI ~= 'selection' then return end
+end
 
-        if self.backward_button:is_clicked() then self.backward_button:changeShip() end
+function Selection:mousepressed(x, y)
+    if self.backward_button:is_clicked(x, y) then self.backward_button:changeShip() end
 
-        if self.ok_button:is_clicked() then
-            self.manager:create_map()
-            CURRENT_GUI = 'map'
-        end
-
-        if self.close_button:is_clicked() then CURRENT_GUI = 'menu' end
-
-        if self.forward_button:is_clicked() then self.forward_button:changeShip() end
-
-        if self.shop_button:is_clicked() then CURRENT_GUI = 'shop' end
+    if self.ok_button:is_clicked(x, y) then
+        self.manager:create_map()
+        CURRENT_GUI = 'map'
     end
+
+    if self.close_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
+
+    if self.forward_button:is_clicked(x, y) then self.forward_button:changeShip() end
+
+    if self.shop_button:is_clicked(x, y) then CURRENT_GUI = 'shop' end
 end
 
 function Selection:render()

@@ -82,26 +82,25 @@ function Shop:update(dt)
         if #self.ships > 0 then
             self.price = SHIPS_DATA[self.ships[self.current_ship].id].price
         end
-        function love.mousepressed(x, y)
-            if CURRENT_GUI ~= 'shop' or self.confirmation then return end
+    end
+end
 
-            if #self.ships > 0 then
-                if self.backward_button:is_clicked() then self.backward_button:changeShip() end
+function Shop:mousepressed(x, y)
+    if #self.ships > 0 then
+        if self.backward_button:is_clicked(x, y) then self.backward_button:changeShip() end
 
-                if self.forward_button:is_clicked() then self.forward_button:changeShip() end
+        if self.forward_button:is_clicked(x, y) then self.forward_button:changeShip() end
 
-                if self.ok_button:is_clicked() then
-                    if self.price <= POINTS then
-                        self.confirmation = true
-                    else
-                        self:purchase_error()
-                    end
-                end
+        if self.ok_button:is_clicked(x, y) then
+            if self.price <= POINTS then
+                self.confirmation = true
+            else
+                self:purchase_error()
             end
-
-            if self.close_button:is_clicked() then CURRENT_GUI = 'selection' end
         end
     end
+
+    if self.close_button:is_clicked(x, y) then CURRENT_GUI = 'selection' end
 end
 
 function Shop:render()

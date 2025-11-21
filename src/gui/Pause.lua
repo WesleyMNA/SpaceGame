@@ -23,14 +23,10 @@ function Pause:new()
     return this
 end
 
-function Pause:update(dt)
-    function love.mousepressed(x, y)
-        if CURRENT_GUI ~= 'pause' then return end
+function Pause:mousepressed(x, y)
+    if self.play_button:is_clicked(x, y) then CURRENT_GUI = 'map' end
 
-        if self.play_button:is_clicked() then CURRENT_GUI = 'map' end
-
-        if self.menu_button:is_clicked() then CURRENT_GUI = 'menu' end
-    end
+    if self.menu_button:is_clicked(x, y) then CURRENT_GUI = 'menu' end
 end
 
 function Pause:render()

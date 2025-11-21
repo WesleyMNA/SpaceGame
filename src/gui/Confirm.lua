@@ -24,15 +24,13 @@ function Confirm:new(shop)
     return this
 end
 
-function Confirm:update(dt)
-    function love.mousepressed(x, y)
-        if self.ok_button:is_clicked() then
-            self.shop:purchaseShip()
-            self.shop.confirmation = false
-        end
-
-        if self.close_button:is_clicked() then self.shop.confirmation = false end
+function Confirm:mousepressed(x, y)
+    if self.ok_button:is_clicked(x, y) then
+        self.shop:purchaseShip()
+        self.shop.confirmation = false
     end
+
+    if self.close_button:is_clicked(x, y) then self.shop.confirmation = false end
 end
 
 function Confirm:render()

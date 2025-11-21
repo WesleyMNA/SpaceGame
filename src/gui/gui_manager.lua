@@ -43,7 +43,9 @@ function GUIManager:new()
 end
 
 function GUIManager:update(dt)
-    self.guis[CURRENT_GUI]:update(dt)
+    if self.guis[CURRENT_GUI].update then
+        self.guis[CURRENT_GUI]:update(dt)
+    end
 end
 
 function GUIManager:render()
@@ -51,6 +53,10 @@ function GUIManager:render()
     love.graphics.draw(self.background)
 
     self.guis[CURRENT_GUI]:render()
+end
+
+function GUIManager:mousepressed(x, y)
+    self.guis[CURRENT_GUI]:mousepressed(x, y)
 end
 
 function GUIManager:create_map()
