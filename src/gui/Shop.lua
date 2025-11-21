@@ -1,4 +1,4 @@
-require('src.gui.Confirm')
+require('src.gui.confirm')
 
 Shop = {}
 Shop.__index = Shop
