@@ -3,7 +3,7 @@ require('src.gui.Menu')
 require('src.gui.Shop')
 require('src.gui.pause')
 require('src.gui.game_over')
-require('src.gui.Selection')
+require('src.gui.selection')
 
 local window = require('src.utils.window')
 local tile = require('src.utils.tile')
@@ -51,7 +51,7 @@ function GUIManager:render()
 end
 
 function GUIManager:create_map()
-    local ship = self.guis.selection:getCurrentShipId()
+    local ship = self.guis.selection:get_current_ship_id()
     self.guis.map = Map:new(self.background, ship)
 end
 
