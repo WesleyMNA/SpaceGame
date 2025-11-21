@@ -19,11 +19,11 @@ end
 local tile = require('src.utils.tile')
 
 function window.get_tiles_per_width()
-    return window.get_width() / tile.size
+    return math.floor(window.get_width() / tile.size)
 end
 
 function window.get_tiles_per_height()
-    return window.get_height() / tile.size
+    return math.floor(window.get_height() / tile.size)
 end
 
 return window

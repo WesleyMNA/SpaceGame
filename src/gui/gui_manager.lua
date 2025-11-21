@@ -13,8 +13,8 @@ GUIManager = {}
 GUIManager.__index = GUIManager
 
 local function create_background(width, height)
-    local randomNumber = math.random(9)
-    local background_tile = love.graphics.newImage('sprites/map/Space_Stars' .. randomNumber .. '.png')
+    local background_id = math.random(9)
+    local background_tile = love.graphics.newImage('sprites/map/Space_Stars' .. background_id .. '.png')
     local result = love.graphics.newSpriteBatch(background_tile, width * height)
     for y = 0, height do
         for x = 0, width do
@@ -27,12 +27,8 @@ end
 function GUIManager:new()
     local this = {
         class = 'GUIManager',
-
-        mapWidth = math.floor(window.get_tiles_per_width()),
-        mapHeight = math.floor(window.get_tiles_per_height()),
+        background = create_background(window.get_tiles_per_width(), window.get_tiles_per_height())
     }
-
-    this.background = create_background(this.mapWidth, this.mapHeight)
 
     this.guis = {
         menu = Menu:new(this.background),
