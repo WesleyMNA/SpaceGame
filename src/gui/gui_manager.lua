@@ -1,7 +1,7 @@
 require('src.Map')
 require('src.gui.Menu')
 require('src.gui.Shop')
-require('src.gui.Pause')
+require('src.gui.pause')
 require('src.gui.game_over')
 require('src.gui.Selection')
 

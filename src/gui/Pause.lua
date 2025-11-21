@@ -1,23 +1,24 @@
+local window = require('src.utils.window')
+
 Pause = {}
 Pause.__index = Pause
 
 function Pause:new(background)
     local this = {
         class = 'Pause',
-
         background = background,
-        icon = love.graphics.newImage('sprites/gui/headers/pause.png')
+        icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
+        menu_button = Button:new(
+            window.get_center_x() - 100,
+            window.get_center_y(),
+            'sprites/gui/buttons/menu.png'
+        ),
+        play_button = Button:new(
+            window.get_center_x() + 50,
+            window.get_center_y(),
+            'sprites/gui/buttons/play.png'
+        )
     }
-
-    local menuIcon = 'sprites/gui/buttons/menu.png'
-    local menuX = (WINDOW_WIDTH / 2) - 100
-    local menuY = WINDOW_HEIGHT / 2
-    this.menuButton = Button:new(menuX, menuY, menuIcon)
-
-    local playIcon = 'sprites/gui/buttons/play.png'
-    local playX = WINDOW_WIDTH / 2 + 50
-    local playY = WINDOW_HEIGHT / 2
-    this.playButton = Button:new(playX, playY, playIcon)
 
     setmetatable(this, self)
     return this
@@ -27,9 +28,9 @@ function Pause:update(dt)
     function love.mousepressed(x, y)
         if CURRENT_GUI ~= 'pause' then return end
 
-        if self.playButton:is_clicked() then CURRENT_GUI = 'map' end
+        if self.play_button:is_clicked() then CURRENT_GUI = 'map' end
 
-        if self.menuButton:is_clicked() then CURRENT_GUI = 'menu' end
+        if self.menu_button:is_clicked() then CURRENT_GUI = 'menu' end
     end
 end
 
@@ -37,10 +38,10 @@ function Pause:render()
     love.graphics.setColor(255, 255, 255, 0.3)
     love.graphics.draw(self.background)
 
-    self.menuButton:render()
-    self.playButton:render()
+    self.menu_button:render()
+    self.play_button:render()
 
-    local iconX = (WINDOW_WIDTH / 2) - self.icon:getWidth()/2
-    local iconY = (WINDOW_HEIGHT / 2) - self.icon:getHeight()*1.5
+    local iconX = window.get_center_x() - self.icon:getWidth() / 2
+    local iconY = window.get_center_y() - self.icon:getHeight() * 1.5
     love.graphics.draw(self.icon, iconX, iconY)
 end
