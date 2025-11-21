@@ -1,6 +1,7 @@
 require('src.gui.button')
 
 local window = require('src.utils.window')
+
 GameOver = {}
 GameOver.__index = GameOver
 
