@@ -5,29 +5,31 @@ require('src.gui.Pause')
 require('src.gui.GameOver')
 require('src.gui.Selection')
 
+local window = require('src.utils.window')
+local tile = require('src.utils.tile')
 CURRENT_GUI = 'menu'
 
 GUIManager = {}
 GUIManager.__index = GUIManager
 
-local function create_background(map_width, map_height)
+local function create_background(width, height)
     local randomNumber = math.random(9)
     local background_tile = love.graphics.newImage('sprites/map/Space_Stars' .. randomNumber .. '.png')
-    local background = love.graphics.newSpriteBatch(background_tile, map_width * map_height)
-    for y = 0, map_height do
-        for x = 0, map_width do
-            background:add(x * TILE_SIZE, y * TILE_SIZE)
+    local result = love.graphics.newSpriteBatch(background_tile, width * height)
+    for y = 0, height do
+        for x = 0, width do
+            result:add(tile.to_tile_size(x), tile.to_tile_size(y))
         end
     end
-    return background
+    return result
 end
 
 function GUIManager:new()
     local this = {
         class = 'GUIManager',
 
-        mapWidth = math.floor(WINDOW_WIDTH / TILE_SIZE),
-        mapHeight = math.floor(WINDOW_HEIGHT / TILE_SIZE),
+        mapWidth = math.floor(window.get_tiles_per_width()),
+        mapHeight = math.floor(window.get_tiles_per_height()),
     }
 
     this.background = create_background(this.mapWidth, this.mapHeight)
