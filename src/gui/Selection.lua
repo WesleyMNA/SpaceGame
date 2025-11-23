@@ -1,5 +1,6 @@
 require('src.gui.button')
 
+local game = require('src.utils.game')
 local screen = require('src.utils.screen')
 local window = require('src.utils.window')
 
@@ -15,6 +16,10 @@ function Selection:new(manager)
         current_ship = 1,
         ships = {},
         number_of_ships = 0,
+    }
+    local button_y = 50
+
+    this.buttons = {
         close_button = Button:new(
             window.get_center_x() + 25,
             close_ok_button_y,
@@ -31,55 +36,48 @@ function Selection:new(manager)
                 CURRENT_GUI = 'shop'
             end
         ),
+        ok_button = Button:new(
+            window.get_center_x() - 75,
+            close_ok_button_y,
+            'sprites/gui/buttons/ok.png',
+            function()
+                this.manager:create_map()
+                CURRENT_GUI = 'map'
+            end
+        ),
+        backward_button = Button:new(
+            100,
+            button_y,
+            'sprites/gui/selection/backward.png',
+            function()
+                if this.current_ship <= 1 then
+                    this.current_ship = this.number_of_ships
+                else
+                    this.current_ship = this.current_ship - 1
+                end
+            end
+        ),
+        forward_button = Button:new(
+            window.get_center_x() + 170,
+            button_y,
+            'sprites/gui/selection/forward.png',
+            function()
+                if this.current_ship >= this.number_of_ships then
+                    this.current_ship = 1
+                else
+                    this.current_ship = this.current_ship + 1
+                end
+            end
+        ),
+        table_button = Button:new(
+            160,
+            button_y,
+            'sprites/gui/selection/table.png'
+        )
     }
 
-    this.ok_button = Button:new(
-        window.get_center_x() - 75,
-        close_ok_button_y,
-        'sprites/gui/buttons/ok.png',
-        function()
-            this.manager:create_map()
-            CURRENT_GUI = 'map'
-        end
-    )
-
     setmetatable(this, self)
-
     this:get_activated_ships()
-
-    local button_y = 50
-    this.backward_button = Button:new(
-        100,
-        button_y,
-        'sprites/gui/selection/backward.png',
-        function()
-            if this.current_ship <= 1 then
-                this.current_ship = this.number_of_ships
-            else
-                this.current_ship = this.current_ship - 1
-            end
-        end
-    )
-
-    this.forward_button = Button:new(
-        window.get_center_x() + 170,
-        button_y,
-        'sprites/gui/selection/forward.png',
-        function()
-            if this.current_ship >= this.number_of_ships then
-                this.current_ship = 1
-            else
-                this.current_ship = this.current_ship + 1
-            end
-        end
-    )
-
-    this.table_button = Button:new(
-        160,
-        button_y,
-        'sprites/gui/selection/table.png'
-    )
-
     return this
 end
 
@@ -88,26 +86,17 @@ function Selection:update(dt)
 end
 
 function Selection:mousepressed(x, y)
-    self.backward_button:mousepressed(x, y)
-    self.forward_button:mousepressed(x, y)
-    self.ok_button:mousepressed(x, y)
-    self.close_button:mousepressed(x, y)
-    self.shop_button:mousepressed(x, y)
+    game.mousepressed(self.buttons, x, y)
 end
 
 function Selection:draw()
-    self.backward_button:draw()
-    self.table_button:draw()
+    game.draw(self.buttons)
     love.graphics.draw(self.header.sprite, self.header.x, self.header.y)
     local shipX = (window.get_center_x()) - 32
     local shipY = 100
     love.graphics.draw(
         self.ships[self.current_ship].sprite, shipX, shipY
     )
-    self.forward_button:draw()
-    self.ok_button:draw()
-    self.close_button:draw()
-    self.shop_button:draw()
 end
 
 function Selection:get_activated_ships()

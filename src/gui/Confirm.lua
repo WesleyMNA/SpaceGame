@@ -1,3 +1,4 @@
+local game = require('src.utils.game')
 local window = require('src.utils.window')
 
 Confirm = {}
@@ -9,31 +10,32 @@ function Confirm:new(shop)
         shop = shop,
         icon = love.graphics.newImage('sprites/gui/headers/purchase.png'),
     }
-    this.ok_button = Button:new(
-        window.get_center_x() - 100,
-        window.get_center_y(),
-        'sprites/gui/buttons/ok.png',
-        function()
-            this.shop:purchase_ship()
-            this.shop.confirmation = false
-        end
-    )
-    this.close_button = Button:new(
-        window.get_center_x() + 50,
-        window.get_center_y(),
-        'sprites/gui/buttons/close.png',
-        function()
-            this.shop.confirmation = false
-        end
-    )
+    this.buttons = {
+        ok = Button:new(
+            window.get_center_x() - 100,
+            window.get_center_y(),
+            'sprites/gui/buttons/ok.png',
+            function()
+                this.shop:purchase_ship()
+                this.shop.confirmation = false
+            end
+        ),
+        close = Button:new(
+            window.get_center_x() + 50,
+            window.get_center_y(),
+            'sprites/gui/buttons/close.png',
+            function()
+                this.shop.confirmation = false
+            end
+        )
+    }
 
     setmetatable(this, self)
     return this
 end
 
 function Confirm:mousepressed(x, y)
-    self.ok_button:mousepressed(x, y)
-    self.close_button:mousepressed(x, y)
+    game.mousepressed(self.buttons, x, y)
 end
 
 function Confirm:draw()
@@ -42,6 +44,5 @@ function Confirm:draw()
     local iconY = 50
     love.graphics.draw(self.icon, iconX, iconY)
 
-    self.ok_button:draw()
-    self.close_button:draw()
+    game.draw(self.buttons)
 end
