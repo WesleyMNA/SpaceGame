@@ -6,10 +6,10 @@ Pause.__index = Pause
 
 function Pause:new(manager)
     local this = {
-        manager = manager,
-        icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
+        _manager = manager,
+        _icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
     }
-    this.buttons = {
+    this._buttons = {
         menu = Button:new(
             window.get_center_x() - 100,
             window.get_center_y(),
@@ -33,13 +33,13 @@ function Pause:new(manager)
 end
 
 function Pause:mousepressed(x, y)
-    game.mousepressed(self.buttons, x, y)
+    game.mousepressed(self._buttons, x, y)
 end
 
 function Pause:draw()
-    game.draw(self.buttons)
+    game.draw(self._buttons)
 
-    local iconX = window.get_center_x() - self.icon:getWidth() / 2
-    local iconY = window.get_center_y() - self.icon:getHeight() * 1.5
-    love.graphics.draw(self.icon, iconX, iconY)
+    local iconX = window.get_center_x() - self._icon:getWidth() / 2
+    local iconY = window.get_center_y() - self._icon:getHeight() * 1.5
+    love.graphics.draw(self._icon, iconX, iconY)
 end

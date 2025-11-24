@@ -8,10 +8,10 @@ Menu.__index = Menu
 
 function Menu:new(manager)
     local this = {
-        manager = manager,
-        icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
+        _manager = manager,
+        _icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
     }
-    this.buttons = {
+    this._buttons = {
         start = Button:new(
             window.get_center_x() - 50,
             230,
@@ -35,12 +35,12 @@ function Menu:new(manager)
 end
 
 function Menu:mousepressed(x, y)
-    game.mousepressed(self.buttons, x, y)
+    game.mousepressed(self._buttons, x, y)
 end
 
 function Menu:draw()
-    game.draw(self.buttons)
+    game.draw(self._buttons)
 
-    local iconX = window.get_center_x() - self.icon:getWidth() / 2
-    love.graphics.draw(self.icon, iconX, 20)
+    local iconX = window.get_center_x() - self._icon:getWidth() / 2
+    love.graphics.draw(self._icon, iconX, 20)
 end
