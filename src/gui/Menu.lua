@@ -8,7 +8,6 @@ Menu.__index = Menu
 
 function Menu:new(manager)
     local this = {
-        class = 'Menu',
         manager = manager,
         icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
     }

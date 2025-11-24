@@ -10,7 +10,6 @@ Shop.__index = Shop
 function Shop:new(manager)
     local close_ok_button_y = 243
     local this = {
-        class = 'Shop',
         manager = manager,
         header = screen.create_header('sprites/gui/headers/hangar.png'),
         error_sound = love.audio.newSource('sounds/gui/error.wav', 'static'),

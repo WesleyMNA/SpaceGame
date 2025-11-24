@@ -10,7 +10,6 @@ Selection.__index = Selection
 function Selection:new(manager)
     local close_ok_button_y = 243
     local this = {
-        class = 'Selection',
         manager = manager,
         header = screen.create_header('sprites/gui/headers/hangar.png'),
         current_ship = 1,

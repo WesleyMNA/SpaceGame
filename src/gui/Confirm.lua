@@ -6,7 +6,6 @@ Confirm.__index = Confirm
 
 function Confirm:new(shop)
     local this = {
-        class = 'Confirm',
         shop = shop,
         icon = love.graphics.newImage('sprites/gui/headers/purchase.png'),
     }

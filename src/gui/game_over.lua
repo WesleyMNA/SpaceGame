@@ -8,7 +8,6 @@ GameOver.__index = GameOver
 
 function GameOver:new(manager)
     local this = {
-        class = 'GameOver',
         manager = manager,
         icon = love.graphics.newImage('sprites/gui/headers/record.png'),
     }

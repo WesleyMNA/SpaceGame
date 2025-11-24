@@ -3,7 +3,6 @@ Button.__index = Button
 
 function Button:new(x, y, icon_path, onclick)
     local this = {
-        class = 'Button',
         x = x,
         y = y,
         icon = love.graphics.newImage(icon_path),

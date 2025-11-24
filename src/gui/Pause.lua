@@ -6,7 +6,6 @@ Pause.__index = Pause
 
 function Pause:new(manager)
     local this = {
-        class = 'Pause',
         manager = manager,
         icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
     }

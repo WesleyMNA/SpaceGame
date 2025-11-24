@@ -25,7 +25,6 @@ end
 
 function GUIManager:new()
     local this = {
-        class = 'GUIManager',
         _current = 'menu',
         _background = create_background(window.get_tiles_per_width(), window.get_tiles_per_height())
     }
