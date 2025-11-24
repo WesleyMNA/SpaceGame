@@ -11,24 +11,24 @@ function GameOver:new(manager)
         class = 'GameOver',
         manager = manager,
         icon = love.graphics.newImage('sprites/gui/headers/record.png'),
-        buttons = {
-            menu = Button:new(
-                window.get_center_x() - 100,
-                window.get_center_y(),
-                'sprites/gui/buttons/menu.png',
-                function()
-                    CURRENT_GUI = 'menu'
-                end
-            ),
-            play = Button:new(
-                window.get_center_x() + 50,
-                window.get_center_y(),
-                'sprites/gui/buttons/play.png',
-                function()
-                    CURRENT_GUI = 'selection'
-                end
-            )
-        }
+    }
+    this.buttons = {
+        menu = Button:new(
+            window.get_center_x() - 100,
+            window.get_center_y(),
+            'sprites/gui/buttons/menu.png',
+            function()
+                this.manager:switch_gui('menu')
+            end
+        ),
+        play = Button:new(
+            window.get_center_x() + 50,
+            window.get_center_y(),
+            'sprites/gui/buttons/play.png',
+            function()
+                this.manager:switch_gui('selection')
+            end
+        )
     }
 
     setmetatable(this, self)

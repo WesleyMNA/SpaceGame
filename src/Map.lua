@@ -15,10 +15,10 @@ local wf = require 'libs.windfield'
 Map = {}
 Map.__index = Map
 
-function Map:new(ship)
+function Map:new(ship, manager)
     local this = {
         class = 'Map',
-
+        manager = manager,
         mapWidth = math.floor(WINDOW_WIDTH / 64),
         mapHeight = math.floor(WINDOW_HEIGHT / 64),
         world = wf.newWorld(0, 0, true),
@@ -31,25 +31,33 @@ function Map:new(ship)
     this.player = Player:new(WINDOW_HEIGHT / 2, 100, this.world, ship)
     this.enemyGenerator = EnemyGenerator:new(this)
 
-    local pauseIcon = 'sprites/gui/buttons/pause.png'
-    local buttonX = WINDOW_WIDTH - 50
-    local buttonY = 0
-    this.pauseButton = Button:new(buttonX, buttonY, pauseIcon)
+    this.pauseButton = Button:new(
+        WINDOW_WIDTH - 50,
+        0,
+        'sprites/gui/buttons/pause.png',
+        function()
+            this.manager:switch_gui('pause')
+        end
+    )
 
     setmetatable(this, self)
     return this
 end
 
 function Map:update(dt)
-    TIMER = TIMER + dt
-    self.world:update(dt)
-    self.player:update(dt)
-    self.enemyGenerator:update(dt)
-    updateLoop(dt, self.enemies)
+    if self.player:is_dead() then
+        self.manager:switch_gui('gameOver')
+    else
+        TIMER = TIMER + dt
+        self.world:update(dt)
+        self.player:update(dt)
+        self.enemyGenerator:update(dt)
+        updateLoop(dt, self.enemies)
+    end
 end
 
 function Map:mousepressed(x, y)
-    if self.pauseButton:is_clicked(x, y) then CURRENT_GUI = 'pause' end
+    self.pauseButton:mousepressed(x, y)
 end
 
 function Map:draw()

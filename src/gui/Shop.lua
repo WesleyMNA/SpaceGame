@@ -44,7 +44,7 @@ function Shop:new(manager)
             close_ok_button_y,
             'sprites/gui/buttons/close.png',
             function()
-                CURRENT_GUI = 'selection'
+                this.manager:switch_gui('selection')
             end
         ),
         backward = Button:new(

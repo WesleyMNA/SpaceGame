@@ -25,7 +25,7 @@ function Selection:new(manager)
             close_ok_button_y,
             'sprites/gui/buttons/close.png',
             function()
-                CURRENT_GUI = 'menu'
+                this.manager:switch_gui('menu')
             end
         ),
         shop_button = Button:new(
@@ -33,7 +33,7 @@ function Selection:new(manager)
             window.get_height() - 50,
             'sprites/gui/selection/shop.png',
             function()
-                CURRENT_GUI = 'shop'
+                this.manager:switch_gui('shop')
             end
         ),
         ok_button = Button:new(
@@ -42,7 +42,6 @@ function Selection:new(manager)
             'sprites/gui/buttons/ok.png',
             function()
                 this.manager:create_map()
-                CURRENT_GUI = 'map'
             end
         ),
         backward_button = Button:new(

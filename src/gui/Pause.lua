@@ -4,28 +4,29 @@ local window = require('src.utils.window')
 Pause = {}
 Pause.__index = Pause
 
-function Pause:new()
+function Pause:new(manager)
     local this = {
         class = 'Pause',
+        manager = manager,
         icon = love.graphics.newImage('sprites/gui/headers/pause.png'),
-        buttons = {
-            menu = Button:new(
-                window.get_center_x() - 100,
-                window.get_center_y(),
-                'sprites/gui/buttons/menu.png',
-                function()
-                    CURRENT_GUI = 'menu'
-                end
-            ),
-            play = Button:new(
-                window.get_center_x() + 50,
-                window.get_center_y(),
-                'sprites/gui/buttons/play.png',
-                function()
-                    CURRENT_GUI = 'map'
-                end
-            )
-        }
+    }
+    this.buttons = {
+        menu = Button:new(
+            window.get_center_x() - 100,
+            window.get_center_y(),
+            'sprites/gui/buttons/menu.png',
+            function()
+                manager:switch_gui('menu')
+            end
+        ),
+        play = Button:new(
+            window.get_center_x() + 50,
+            window.get_center_y(),
+            'sprites/gui/buttons/play.png',
+            function()
+                manager:switch_gui('map')
+            end
+        )
     }
 
     setmetatable(this, self)

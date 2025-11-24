@@ -34,7 +34,7 @@ function Player:new(x, y, world, shipNumber)
     this.width = this.spritesheet:getWidth()
     this.height = this.spritesheet:getHeight()
 
-    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, this.currentShip.radius)
+    this.collider = world:newCircleCollider(x + this.width / 2, y + this.height / 2, this.currentShip.radius)
     this.collider:setCollisionClass('Player')
 
     this.explosion = Explosion:new(this)
@@ -48,10 +48,10 @@ function Player:new(x, y, world, shipNumber)
             if this.y < mouseY and not this:isOnBottomEdge() then
                 this.y = this.y + this.speed * dt
             end
-            if  this.x > mouseX then
+            if this.x > mouseX then
                 this.x = this.x - this.speed * dt
             end
-            if  this.x < mouseX and not this:isOnRightEdge() then
+            if this.x < mouseX and not this:isOnRightEdge() then
                 this.x = this.x + this.speed * dt
             end
         end
@@ -81,23 +81,22 @@ function Player:update(dt)
         self.move(dt)
         self.attack(dt)
         self.collide(dt)
-        self.collider:setPosition(self.x+self.width/2, self.y+self.height/2)
+        self.collider:setPosition(self.x + self.width / 2, self.y + self.height / 2)
 
         updateLoop(dt, self.shots)
     else
         self.explosion:update(dt)
         love.audio.play(explosionSound)
-        if self.explosion.animation:hasFinished() then CURRENT_GUI = 'gameOver' end
     end
 end
 
 function Player:draw()
     if self:isAlive() then
-        love.graphics.setColor(255,255,255,1)
+        love.graphics.setColor(255, 255, 255, 1)
         love.graphics.draw(self.spritesheet, self.x, self.y)
 
-        love.graphics.setColor(0,255,0,1)
-        love.graphics.print('Health: '..self.health)
+        love.graphics.setColor(0, 255, 0, 1)
+        love.graphics.print('Health: ' .. self.health)
 
         renderLoop(self.shots)
     else
@@ -137,4 +136,8 @@ end
 
 function Player:getPosition()
     return self.x, self.y
+end
+
+function Player:is_dead()
+    return not self:isAlive() and self.explosion.animation:hasFinished()
 end

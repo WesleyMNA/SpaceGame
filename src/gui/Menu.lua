@@ -6,28 +6,29 @@ local window = require('src.utils.window')
 Menu = {}
 Menu.__index = Menu
 
-function Menu:new()
+function Menu:new(manager)
     local this = {
         class = 'Menu',
+        manager = manager,
         icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
-        buttons = {
-            start = Button:new(
-                window.get_center_x() - 50,
-                230,
-                'sprites/gui/menu/start.png',
-                function()
-                    CURRENT_GUI = 'selection'
-                end
-            ),
-            exit = Button:new(
-                window.get_center_x() - 50,
-                280,
-                'sprites/gui/menu/exit.png',
-                function()
-                    love.event.quit('exit')
-                end
-            )
-        }
+    }
+    this.buttons = {
+        start = Button:new(
+            window.get_center_x() - 50,
+            230,
+            'sprites/gui/menu/start.png',
+            function()
+                manager:switch_gui('selection')
+            end
+        ),
+        exit = Button:new(
+            window.get_center_x() - 50,
+            280,
+            'sprites/gui/menu/exit.png',
+            function()
+                love.event.quit('exit')
+            end
+        )
     }
 
     setmetatable(this, self)
