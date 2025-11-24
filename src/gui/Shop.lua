@@ -80,7 +80,9 @@ function Shop:new(manager)
         confirm = Button:new(
             160,
             button_y,
-            'sprites/gui/selection/table.png'
+            'sprites/gui/selection/table.png',
+            function()
+            end
         ),
     }
     this.confirm = Confirm:new(this)

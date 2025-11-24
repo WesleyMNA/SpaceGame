@@ -71,7 +71,9 @@ function Selection:new(manager)
         table_button = Button:new(
             160,
             button_y,
-            'sprites/gui/selection/table.png'
+            'sprites/gui/selection/table.png',
+            function ()
+            end
         )
     }
 
