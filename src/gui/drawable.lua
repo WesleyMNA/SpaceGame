@@ -1,11 +1,11 @@
 Drawable = {}
 Drawable.__index = Drawable
 
-function Drawable:new(image, x, y)
+function Drawable:new(x, y, image)
     local this = {
-        _image = image,
         _x = x,
-        _y = y
+        _y = y,
+        _image = image,
     }
     setmetatable(this, self)
     return this

@@ -6,9 +6,9 @@ local window = require('src.utils.window')
 local function create_icon()
     local image = love.graphics.newImage('sprites/gui/headers/pause.png')
     return Drawable:new(
-        image,
         window.get_center_x() - image:getWidth() / 2,
-        window.get_center_y() - image:getHeight() * 1.5
+        window.get_center_y() - image:getHeight() * 1.5,
+        image
     )
 end
 

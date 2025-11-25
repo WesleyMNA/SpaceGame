@@ -1,4 +1,5 @@
 require('src.gui.confirm')
+require('src.gui.drawable')
 
 local game = require('src.utils.game')
 local screen = require('src.utils.screen')
@@ -76,14 +77,8 @@ function Shop:new(manager)
                 end
             end
         ),
-        confirm = Button:new(
-            160,
-            button_y,
-            'sprites/gui/selection/table.png',
-            function()
-            end
-        ),
     }
+    this._table = Drawable:new(160, button_y, love.graphics.newImage('sprites/gui/selection/table.png'))
     this._confirm = Confirm:new(this)
     this._ship_x = window.get_center_x() - 32
     this._ship_y = 100
@@ -111,7 +106,8 @@ function Shop:draw()
         self._confirm:draw()
     else
         game.draw(self._buttons)
-        love.graphics.draw(self._header.image, self._header.x, self._header.y)
+        self._header:draw()
+        self._table:draw()
         self:print_shop_data()
     end
 end

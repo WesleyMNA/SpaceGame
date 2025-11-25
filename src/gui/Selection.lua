@@ -67,15 +67,12 @@ function Selection:new(manager)
                 end
             end
         ),
-        table_button = Button:new(
-            160,
-            button_y,
-            'sprites/gui/selection/table.png',
-            function ()
-            end
-        )
     }
-
+    this._table = Drawable:new(
+        160,
+        button_y,
+        love.graphics.newImage('sprites/gui/selection/table.png')
+    )
     setmetatable(this, self)
     this:get_activated_ships()
     return this
@@ -91,7 +88,8 @@ end
 
 function Selection:draw()
     game.draw(self._buttons)
-    love.graphics.draw(self._header.image, self._header.x, self._header.y)
+    self._table:draw()
+    self._header:draw()
     local shipX = (window.get_center_x()) - 32
     local shipY = 100
     love.graphics.draw(

@@ -8,9 +8,9 @@ local window = require('src.utils.window')
 local function create_icon()
     local image = love.graphics.newImage('sprites/gui/menu/icon.png')
     return Drawable:new(
-        image,
         screen.centralize_image_in_x(image),
-        20
+        20,
+        image
     )
 end
 
