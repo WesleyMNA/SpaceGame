@@ -24,7 +24,7 @@ function Shop:new(manager)
     local button_y = 50
     local buttonX = 160 + window.get_center_x() + 10
     this._buttons = {
-        ok = Button:new(
+        Button:new(
             window.get_center_x() - 75,
             close_ok_button_y,
             'sprites/gui/buttons/ok.png',
@@ -39,7 +39,7 @@ function Shop:new(manager)
                 end
             end
         ),
-        close_button = Button:new(
+        Button:new(
             window.get_center_x() + 25,
             close_ok_button_y,
             'sprites/gui/buttons/close.png',
@@ -47,7 +47,7 @@ function Shop:new(manager)
                 this._manager:switch_gui('selection')
             end
         ),
-        backward = Button:new(
+        Button:new(
             100,
             button_y,
             'sprites/gui/selection/backward.png',
@@ -62,7 +62,7 @@ function Shop:new(manager)
                 end
             end
         ),
-        forward = Button:new(
+        Button:new(
             buttonX,
             button_y,
             'sprites/gui/selection/forward.png',

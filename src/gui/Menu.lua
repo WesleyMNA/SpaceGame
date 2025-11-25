@@ -23,7 +23,7 @@ function Menu:new(manager)
         _icon = create_icon(),
     }
     this._buttons = {
-        start = Button:new(
+        Button:new(
             window.get_center_x() - 50,
             230,
             'sprites/gui/menu/start.png',
@@ -31,7 +31,7 @@ function Menu:new(manager)
                 manager:switch_gui('selection')
             end
         ),
-        exit = Button:new(
+        Button:new(
             window.get_center_x() - 50,
             280,
             'sprites/gui/menu/exit.png',

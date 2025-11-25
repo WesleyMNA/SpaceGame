@@ -19,7 +19,7 @@ function Selection:new(manager)
     local button_y = 50
 
     this._buttons = {
-        close_button = Button:new(
+        Button:new(
             window.get_center_x() + 25,
             close_ok_button_y,
             'sprites/gui/buttons/close.png',
@@ -27,7 +27,7 @@ function Selection:new(manager)
                 this._manager:switch_gui('menu')
             end
         ),
-        shop_button = Button:new(
+        Button:new(
             window.get_width() - 50,
             window.get_height() - 50,
             'sprites/gui/selection/shop.png',
@@ -35,7 +35,7 @@ function Selection:new(manager)
                 this._manager:switch_gui('shop')
             end
         ),
-        ok_button = Button:new(
+        Button:new(
             window.get_center_x() - 75,
             close_ok_button_y,
             'sprites/gui/buttons/ok.png',
@@ -43,7 +43,7 @@ function Selection:new(manager)
                 this._manager:create_map()
             end
         ),
-        backward_button = Button:new(
+        Button:new(
             100,
             button_y,
             'sprites/gui/selection/backward.png',
@@ -55,7 +55,7 @@ function Selection:new(manager)
                 end
             end
         ),
-        forward_button = Button:new(
+        Button:new(
             window.get_center_x() + 170,
             button_y,
             'sprites/gui/selection/forward.png',

@@ -22,7 +22,7 @@ function Confirm:new(shop)
         _icon = create_icon(),
     }
     this._buttons = {
-        ok = Button:new(
+        Button:new(
             window.get_center_x() - 100,
             window.get_center_y(),
             'sprites/gui/buttons/ok.png',
@@ -31,7 +31,7 @@ function Confirm:new(shop)
                 this._shop.confirmation = false
             end
         ),
-        close = Button:new(
+        Button:new(
             window.get_center_x() + 50,
             window.get_center_y(),
             'sprites/gui/buttons/close.png',

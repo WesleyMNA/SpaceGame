@@ -23,7 +23,7 @@ function GameOver:new(manager)
         _icon = create_icon(),
     }
     this._buttons = {
-        menu = Button:new(
+        Button:new(
             window.get_center_x() - 100,
             window.get_center_y(),
             'sprites/gui/buttons/menu.png',
@@ -31,7 +31,7 @@ function GameOver:new(manager)
                 this._manager:switch_gui('menu')
             end
         ),
-        play = Button:new(
+        Button:new(
             window.get_center_x() + 50,
             window.get_center_y(),
             'sprites/gui/buttons/play.png',
