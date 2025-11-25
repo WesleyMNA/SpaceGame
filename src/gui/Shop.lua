@@ -111,7 +111,7 @@ function Shop:draw()
         self._confirm:draw()
     else
         game.draw(self._buttons)
-        love.graphics.draw(self._header.sprite, self._header.x, self._header.y)
+        love.graphics.draw(self._header.image, self._header.x, self._header.y)
         self:print_shop_data()
     end
 end

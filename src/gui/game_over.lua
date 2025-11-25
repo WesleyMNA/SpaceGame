@@ -1,7 +1,18 @@
 require('src.gui.button')
+require('src.gui.drawable')
 
 local game = require('src.utils.game')
+local screen = require('src.utils.screen')
 local window = require('src.utils.window')
+
+local function create_icon()
+    local image = love.graphics.newImage('sprites/gui/headers/record.png')
+    return Drawable:new(
+        image,
+        screen.centralize_image_in_x(image),
+        20
+    )
+end
 
 GameOver = {}
 GameOver.__index = GameOver
@@ -9,7 +20,7 @@ GameOver.__index = GameOver
 function GameOver:new(manager)
     local this = {
         _manager = manager,
-        _icon = love.graphics.newImage('sprites/gui/headers/record.png'),
+        _icon = create_icon(),
     }
     this._buttons = {
         menu = Button:new(
@@ -47,13 +58,9 @@ function GameOver:mousepressed(x, y)
 end
 
 function GameOver:draw()
-    love.graphics.setColor(255, 255, 255, 1)
-    local iconX = window.get_center_x() - self._icon:getWidth() / 2
-    local iconY = 25
-    love.graphics.draw(self._icon, iconX, iconY)
-
+    self._icon:draw()
     local printX = window.get_center_x() - 50
-    local printY = iconY + self._icon:getHeight()
+    local printY = window.get_center_y() - 50
     love.graphics.print(math.floor(RECORD) .. ' seconds', printX, printY, 0, 2, 2)
 
     game.draw(self._buttons)

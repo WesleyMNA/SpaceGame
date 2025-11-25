@@ -91,7 +91,7 @@ end
 
 function Selection:draw()
     game.draw(self._buttons)
-    love.graphics.draw(self._header.sprite, self._header.x, self._header.y)
+    love.graphics.draw(self._header.image, self._header.x, self._header.y)
     local shipX = (window.get_center_x()) - 32
     local shipY = 100
     love.graphics.draw(

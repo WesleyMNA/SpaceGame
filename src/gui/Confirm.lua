@@ -1,5 +1,17 @@
+require('src.gui.drawable')
+
 local game = require('src.utils.game')
+local screen = require('src.utils.screen')
 local window = require('src.utils.window')
+
+local function create_icon()
+    local image = love.graphics.newImage('sprites/gui/headers/purchase.png')
+    return Drawable:new(
+        image,
+        screen.centralize_image_in_x(image),
+        50
+    )
+end
 
 Confirm = {}
 Confirm.__index = Confirm
@@ -7,7 +19,7 @@ Confirm.__index = Confirm
 function Confirm:new(shop)
     local this = {
         _shop = shop,
-        _icon = love.graphics.newImage('sprites/gui/headers/purchase.png'),
+        _icon = create_icon(),
     }
     this._buttons = {
         ok = Button:new(
@@ -38,10 +50,6 @@ function Confirm:mousepressed(x, y)
 end
 
 function Confirm:draw()
-    love.graphics.setColor(255, 255, 255, 1)
-    local iconX = window.get_center_x() - self._icon:getWidth() / 2
-    local iconY = 50
-    love.graphics.draw(self._icon, iconX, iconY)
-
+    self._icon:draw()
     game.draw(self._buttons)
 end

@@ -1,7 +1,18 @@
 require('src.gui.button')
+require('src.gui.drawable')
 
 local game = require('src.utils.game')
+local screen = require('src.utils.screen')
 local window = require('src.utils.window')
+
+local function create_icon()
+    local image = love.graphics.newImage('sprites/gui/menu/icon.png')
+    return Drawable:new(
+        image,
+        screen.centralize_image_in_x(image),
+        20
+    )
+end
 
 Menu = {}
 Menu.__index = Menu
@@ -9,7 +20,7 @@ Menu.__index = Menu
 function Menu:new(manager)
     local this = {
         _manager = manager,
-        _icon = love.graphics.newImage('sprites/gui/menu/icon.png'),
+        _icon = create_icon(),
     }
     this._buttons = {
         start = Button:new(
@@ -39,8 +50,6 @@ function Menu:mousepressed(x, y)
 end
 
 function Menu:draw()
+    self._icon:draw()
     game.draw(self._buttons)
-
-    local iconX = window.get_center_x() - self._icon:getWidth() / 2
-    love.graphics.draw(self._icon, iconX, 20)
 end
