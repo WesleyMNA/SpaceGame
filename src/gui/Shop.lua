@@ -32,7 +32,7 @@ function Shop:new(manager)
                 if #this._ships <= 0 then
                     return
                 end
-                if this.price <= POINTS then
+                if this._price <= POINTS then
                     this._confirmation = true
                 else
                     this:purchase_error()
@@ -152,4 +152,8 @@ end
 function Shop:purchase_error()
     self._price_color = { 255, 0, 0 }
     love.audio.play(self._error_sound)
+end
+
+function Shop:close_confirmation()
+    self._confirmation = false
 end

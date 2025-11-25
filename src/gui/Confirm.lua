@@ -28,7 +28,7 @@ function Confirm:new(shop)
             'sprites/gui/buttons/ok.png',
             function()
                 this._shop:purchase_ship()
-                this._shop.confirmation = false
+                this._shop:close_confirmation()
             end
         ),
         Button:new(
@@ -36,7 +36,7 @@ function Confirm:new(shop)
             window.get_center_y(),
             'sprites/gui/buttons/close.png',
             function()
-                this._shop.confirmation = false
+                this._shop:close_confirmation()
             end
         )
     }
