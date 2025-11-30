@@ -1,5 +1,5 @@
 require('src.Util')
-require('src.player.Player')
+require('src.player.player')
 require('src.enemy.EnemyGenerator')
 require('src.CreateCollisionClasses')
 

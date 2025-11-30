@@ -2,6 +2,8 @@ require('src.Util')
 require('src.player.Shot')
 require('src.player.ShipsData')
 
+local window = require('src.utils.window')
+
 local explosionSound = love.audio.newSource('sounds/player/explosion.wav', 'static')
 
 Player = {}
@@ -15,26 +17,26 @@ function Player:new(x, y, world, shipNumber)
         x = x,
         y = y,
 
-        currentShip = SHIPS_DATA[shipNumber],
+        current_ship = SHIPS_DATA[shipNumber],
         hit = love.audio.newSource('sounds/player/hit.wav', 'static'),
 
         world = world,
         shots = {}
     }
 
-    this.health = this.currentShip.health
-    this.speed = this.currentShip.speed
+    this.health = this.current_ship.health
+    this.speed = this.current_ship.speed
 
-    this.shotSpeed = this.currentShip.shotSpeed
-    this.shotTimer = this.shotSpeed
+    this.shot_speed = this.current_ship.shotSpeed
+    this.shot_timer = this.shot_speed
 
-    this.shotX = this.currentShip.shotX
-    this.shotY = this.currentShip.shotY
+    this.shot_x = this.current_ship.shotX
+    this.shot_y = this.current_ship.shotY
 
     this.width = this.spritesheet:getWidth()
     this.height = this.spritesheet:getHeight()
 
-    this.collider = world:newCircleCollider(x + this.width / 2, y + this.height / 2, this.currentShip.radius)
+    this.collider = world:newCircleCollider(x + this.width / 2, y + this.height / 2, this.current_ship.radius)
     this.collider:setCollisionClass('Player')
 
     this.explosion = Explosion:new(this)
@@ -45,23 +47,23 @@ function Player:new(x, y, world, shipNumber)
             if this.y > mouseY then
                 this.y = this.y - this.speed * dt
             end
-            if this.y < mouseY and not this:isOnBottomEdge() then
+            if this.y < mouseY and not this:is_on_the_bottom_edge() then
                 this.y = this.y + this.speed * dt
             end
             if this.x > mouseX then
                 this.x = this.x - this.speed * dt
             end
-            if this.x < mouseX and not this:isOnRightEdge() then
+            if this.x < mouseX and not this:is_on_the_right_edge() then
                 this.x = this.x + this.speed * dt
             end
         end
     end
 
     this.attack = function(dt)
-        this.shotTimer = this.shotTimer + dt
-        if this.shotTimer > this.shotSpeed then
+        this.shot_timer = this.shot_timer + dt
+        if this.shot_timer > this.shot_speed then
             this:shoot()
-            this.shotTimer = 0
+            this.shot_timer = 0
         end
     end
 
@@ -77,7 +79,7 @@ function Player:new(x, y, world, shipNumber)
 end
 
 function Player:update(dt)
-    if self:isAlive() then
+    if self:is_alive() then
         self.move(dt)
         self.attack(dt)
         self.collide(dt)
@@ -91,7 +93,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    if self:isAlive() then
+    if self:is_alive() then
         love.graphics.setColor(255, 255, 255, 1)
         love.graphics.draw(self.spritesheet, self.x, self.y)
 
@@ -106,30 +108,25 @@ end
 
 function Player:shoot()
     local shot = Shot:new(
-        self.x + self.shotX,
-        self.y + self.shotY,
-        self.currentShip, self.world, self.shots
+        self.x + self.shot_x,
+        self.y + self.shot_y,
+        self.current_ship, self.world, self.shots
     )
-    love.audio.play(self.currentShip.shot.sound)
+    love.audio.play(self.current_ship.shot.sound)
     table.insert(self.shots, shot)
 end
 
-function Player:isOnRightEdge()
-    local delimiter = 50
-    if self.x + self.width >= WINDOW_WIDTH - delimiter then
-        return true
-    end
-    return false
+local delimiter = 50
+
+function Player:is_on_the_right_edge()
+    return self.x + self.width >= window.get_width() - delimiter
 end
 
-function Player:isOnBottomEdge()
-    if self.y + self.height >= WINDOW_HEIGHT then
-        return true
-    end
-    return false
+function Player:is_on_the_bottom_edge()
+    return self.y + self.height >= window.get_height()
 end
 
-function Player:isAlive()
+function Player:is_alive()
     if self.health <= 0 then return false end
     return true
 end
@@ -139,5 +136,5 @@ function Player:getPosition()
 end
 
 function Player:is_dead()
-    return not self:isAlive() and self.explosion.animation:hasFinished()
+    return not self:is_alive() and self.explosion.animation:hasFinished()
 end
