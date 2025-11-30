@@ -1,5 +1,5 @@
 require('src.Util')
-require('src.player.Shot')
+require('src.player.machine_gun')
 require('src.player.ShipsData')
 
 local window = require('src.utils.window')
@@ -21,17 +21,11 @@ function Player:new(x, y, world, shipNumber)
         hit = love.audio.newSource('sounds/player/hit.wav', 'static'),
 
         world = world,
-        shots = {}
     }
 
+    this.machine_gun = MachineGun:new(world, this, this.current_ship.shot)
     this.health = this.current_ship.health
     this.speed = this.current_ship.speed
-
-    this.shot_speed = this.current_ship.shotSpeed
-    this.shot_timer = this.shot_speed
-
-    this.shot_x = this.current_ship.shotX
-    this.shot_y = this.current_ship.shotY
 
     this.width = this.spritesheet:getWidth()
     this.height = this.spritesheet:getHeight()
@@ -59,14 +53,6 @@ function Player:new(x, y, world, shipNumber)
         end
     end
 
-    this.attack = function(dt)
-        this.shot_timer = this.shot_timer + dt
-        if this.shot_timer > this.shot_speed then
-            this:shoot()
-            this.shot_timer = 0
-        end
-    end
-
     this.collide = function(dt)
         if this.collider:enter('Enemy') or this.collider:enter('EnemyShot') then
             this.health = this.health - 1
@@ -81,11 +67,9 @@ end
 function Player:update(dt)
     if self:is_alive() then
         self.move(dt)
-        self.attack(dt)
+        self.machine_gun:update(dt)
         self.collide(dt)
         self.collider:setPosition(self.x + self.width / 2, self.y + self.height / 2)
-
-        updateLoop(dt, self.shots)
     else
         self.explosion:update(dt)
         love.audio.play(explosionSound)
@@ -100,20 +84,10 @@ function Player:draw()
         love.graphics.setColor(0, 255, 0, 1)
         love.graphics.print('Health: ' .. self.health)
 
-        renderLoop(self.shots)
+        self.machine_gun:draw()
     else
         self.explosion:draw()
     end
-end
-
-function Player:shoot()
-    local shot = Shot:new(
-        self.x + self.shot_x,
-        self.y + self.shot_y,
-        self.current_ship, self.world, self.shots
-    )
-    love.audio.play(self.current_ship.shot.sound)
-    table.insert(self.shots, shot)
 end
 
 local delimiter = 50
