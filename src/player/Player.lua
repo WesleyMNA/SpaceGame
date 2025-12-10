@@ -1,6 +1,6 @@
 require('src.Util')
 require('src.player.machine_gun')
-require('src.player.ShipsData')
+require('src.player.ships_data')
 
 local window = require('src.utils.window')
 

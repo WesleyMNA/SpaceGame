@@ -5,30 +5,29 @@ Shot = {}
 Shot.__index = Shot
 
 function Shot:new(x, y, ship, world, shotsTable)
+    local shot_data = ship.shot
+
     local this = {
         class = 'Shot',
 
-        spritesheet = love.graphics.newImage('sprites/player/ship'..ship.id..'/shot.png'),
+        spritesheet = love.graphics.newImage('sprites/player/ship' .. ship.id .. '/shot.png'),
         x = x,
         y = y,
+        width = shot_data.width,
+        height = shot_data.height,
+        speed = shot_data.speed,
 
-        currentShot = ship.shot,
         shotsTable = shotsTable,
         state = 'move'
     }
 
-    this.width = this.currentShot.width
-    this.height = this.currentShot.height
-    this.speed = this.currentShot.speed
-
     this.quad = love.graphics.newQuad(0, 0, this.width, this.height, this.spritesheet:getDimensions())
-
-    this.collider = world:newCircleCollider(x+this.width/2, y+this.height/2, this.currentShot.radius)
+    this.collider = world:newCircleCollider(x, y, shot_data.radius)
     this.collider:setCollisionClass('Shot')
 
     this.animation = {
-        move = Animation:new(this.quad, this.currentShot.move),
-        collide = Animation:new(this.quad, this.currentShot.collide)
+        move = Animation:new(this.quad, shot_data.move),
+        collide = Animation:new(this.quad, shot_data.collide)
     }
 
     this.behaviors = {
@@ -56,16 +55,25 @@ function Shot:update(dt)
     self.behaviors[self.state](dt)
     self.animation[self.state]:update(dt)
     if self.collider.body then
-        self.collider:setPosition(self.x+self.width/2, self.y+self.height/2)
+        self.collider:setPosition(self.x, self.y)
     end
 end
 
 function Shot:draw()
-    love.graphics.setColor(255,255,255,1)
-    love.graphics.draw(self.spritesheet, self.quad, self.x, self.y)
+    love.graphics.setColor(255, 255, 255, 1)
+    love.graphics.draw(
+        self.spritesheet,
+        self.quad,
+        self.collider:getX(),
+        self.collider:getY(),
+        0,
+        1,
+        1,
+        self.width / 2,
+        self.height / 2
+    )
 end
 
 function Shot:isOutOfMap()
-    if self.x > WINDOW_WIDTH - 50 then return true end
-    return false
+    return self.collider:getX() > WINDOW_WIDTH - 50
 end
